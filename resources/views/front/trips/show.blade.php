@@ -298,10 +298,12 @@
 
           </div>
 
+          @if($trip->trip_info && $trip->trip_info->highlights)
           <h3>Highlights</h3>
           <ul class="highlights">
               {!! ($trip->trip_info)?$trip->trip_info->highlights:'' !!}
           </ul>
+          @endif
 
           <div id="overview-text" class="collapse">
             <p>
@@ -336,7 +338,7 @@
               </div>
               <div class="itinerary-text">
                 <div class="collapse-toggle">
-                  <a data-toggle="collapse" href="#day1" aria-expanded="false" aria-controls="day{{ $key }}">
+                  <a data-toggle="collapse" href="#day{{ $key }}" aria-expanded="false" aria-controls="day{{ $key }}">
                     <h3>{{ $itinerary->name }}</h3>
                   </a>
                 </div>
@@ -507,22 +509,22 @@
           <div class="card price-card mb-4">
             <div class="ribbon">
               <div class="text">
-                Best Price
+                {{ $trip->best_value }}
               </div>
             </div>
             <div class="card-header">
               <h3>Price starting from</h3>
             </div>
             <p class="price">
-              <s>$2,400</s>
+              <s>${{ number_format($trip->cost) }}</s>
               <span class="currency">USD</span>
-              <span class="figure">2,000</span>
+              <span class="figure">{{ number_format($trip->offer_price) }}</span>
             </p>
             <p class="mb-3">
               <small>per person</small>
             </p>
             <p class="mb-3">
-              <a href="booking-form.php" class="btn btn-block btn-accent">Book Now</a>
+              <a href="{{ route('front.trips.booking', ['slug' => $trip->slug]) }}" class="btn btn-block btn-accent">Book Now</a>
               <a href="#" class="btn btn-block btn-accent">Enquire Now</a>
             </p>
             <hr>
@@ -600,46 +602,14 @@
           </div>
           @endif
           {{-- end of map --}}
-
           <button data-toggle="modal" data-target="#agency-modal"
             class="btn btn-customize btn-accent2 btn-block mb-3"><i class="fas fa-file-download"></i>Download
             Brochure</button>
 
-          <div class="quick-enquiry-card card mb-3">
-            <div class="card-header">
-              <h3>Quick Enquiry</h3>
-            </div>
-            <div class="card-body">
-              <form action="">
-                <div class="form-group">
-                  <!-- <label for="">Name <sup>*</sup></label> -->
-                  <input type="text" class="form-control" placeholder="Name">
-                </div>
-                <div class="form-group">
-                  <!-- <label for="">E-mail <sup>*</sup></label> -->
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <!-- <label for="">Country <sup>*</sup></label> -->
-                  <select name="" id="" class="form-control">
-                    <option disabled selected>Country</option>
-                  </select>
-                </div>
+            {{-- enquiry form --}}
+            @include('front.elements.enquiry')
+            {{-- end of enquiry form --}}
 
-                <div class="form-group">
-                  <!-- <label for="">Phone Number <sup>*</sup></label> -->
-                  <input type="tel" class="form-control" placeholder="Phone No.">
-                </div>
-                <div class="form-group">
-                  <!-- <label for="">Message <sup>*</sup></label> -->
-                  <textarea rows="5" class="form-control" placeholder="Message"></textarea>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-accent">Send</button>
-                </div>
-              </form>
-            </div>
-          </div>
 
           <div class="experts-card card">
             <p class="mb-0">Still confused?</p>
