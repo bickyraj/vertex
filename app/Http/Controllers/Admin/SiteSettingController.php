@@ -68,6 +68,18 @@ class SiteSettingController extends Controller
         return redirect()->route('admin.settings.general');
     }
 
+    public function socialMediaStore(Request $request)
+    {
+        Setting::update('pinterest', $request->get('pinterest'));
+        Setting::update('flicker', $request->get('flicker'));
+        Setting::update('facebook', $request->get('facebook'));
+        Setting::update('instagram', $request->get('instagram'));
+        Setting::update('twitter', $request->get('twitter'));
+
+        session()->flash('success_message', __('alerts.update_success'));
+        return redirect()->route('admin.settings.general');
+    }
+
     public function homePageStore(Request $request)
     {
         $old_image = "";

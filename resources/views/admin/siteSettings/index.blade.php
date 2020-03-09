@@ -45,6 +45,11 @@
                                 <i class="la la-phone"></i> Contact Us
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_4">
+                                <i class="la la-share-alt"></i> Get Connected
+                            </a>
+                        </li>
                     </ul>   
                     
                     <div id="trip-tab" class="tab-content trip-tab-form">
@@ -262,6 +267,57 @@
                         </form>
                       </div>
                       {{-- end of contact us --}}
+
+                      {{-- get connected block --}}
+                      <div class="tab-pane active" data-index="4" id="kt_tabs_1_4" role="tabpanel">
+                        <form class="kt-form" method="POST" action="{{ route('admin.settings.socialmedia.store') }}" id="setting-form">
+                        {{ csrf_field() }}
+
+                          <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Pinterest </label>
+                            <div class="col-lg-7">
+                              <input type="text" id="input-pinterest" class="form-control form-control-sm" name="pinterest" value="{{ Setting::get('pinterest') }}">
+                              {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Facebook</label>
+                            <div class="col-lg-7">
+                              <input type="text" id="input-facebook" class="form-control form-control-sm" name="facebook" value="{{ Setting::get('facebook') }}">
+                              {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Instagram</label>
+                            <div class="col-lg-7">
+                              <input type="text" id="input-instagram" class="form-control form-control-sm" name="instagram" value="{{ Setting::get('instagram') }}">
+                              {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Twitter</label>
+                            <div class="col-lg-7">
+                              <input type="text" id="input-twitter" class="form-control form-control-sm" name="twitter" value="{{ Setting::get('twitter') }}">
+                              {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Flicker</label>
+                            <div class="col-lg-7">
+                              <input type="text" id="input-flicker" class="form-control form-control-sm" name="flicker" value="{{ Setting::get('flicker') }}">
+                              {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="kt-form__actions">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                  <i class="flaticon2-arrow-up"></i>
+                                Save</button>
+                            <a href="{{ route('admin.settings.general') }}" class="btn btn-secondary">Cancel</a>
+                          </div>
+                        </form>
+                      </div>
+                      {{-- end of get connected block --}}
                     </div>
                   </div>
                   <!-- <div class="kt-portlet__foot">

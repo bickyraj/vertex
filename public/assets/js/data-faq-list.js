@@ -7,10 +7,10 @@ var url = document
 var KTDatatableJsonRemoteDemo = function () {
 	// Private functions
 	var dataTable;
+	var categoryList;
 
 	// basic demo
 	var demo = function () {
-
 		dataTable = $('.kt-datatable').KTDatatable({
 			// datasource definition
 			data: {
@@ -56,8 +56,26 @@ var KTDatatableJsonRemoteDemo = function () {
 					title: 'Title',
 				},
 				{
-					field: 'slug',
-					title: 'Slug'
+					field: 'Category',
+					title: 'Category',
+					sortable: false,
+					overflow: 'visible',
+					template: function(item) {
+						let option = "";
+						$.each(categoryList, function(i, v) {
+							let selected = "";
+							if (v.id == item.faq_category_id) {
+								selected = "selected";
+							}
+							option += '<option value="'+v.id+'" '+selected+'>'+v.name+'</option>';
+						});
+						return '\
+						<select data-id="'+item.id+'" class="form-control form-control-sm category-select">\
+							<option>--Select Category--</option>\
+							'+option+'\
+						</select>\
+						';
+					}
 				},
 				{
 					field: 'Actions',
@@ -81,17 +99,54 @@ var KTDatatableJsonRemoteDemo = function () {
 
 		});
 
-    $('#kt_form_status').on('change', function() {
-      datatable.search($(this).val().toLowerCase(), 'Status');
-    });
+	    $('#kt_form_status').on('change', function() {
+	      datatable.search($(this).val().toLowerCase(), 'Status');
+	    });
 
-    $('#kt_form_type').on('change', function() {
-      datatable.search($(this).val().toLowerCase(), 'Type');
-    });
+	    $('#kt_form_type').on('change', function() {
+	      datatable.search($(this).val().toLowerCase(), 'Type');
+	    });
 
-    $('#kt_form_status,#kt_form_type').selectpicker();
+	    $('#kt_form_status,#kt_form_type').selectpicker();
 
 	};
+
+	function fetchCategoryList(categoryId) {
+		var action_url = url + '/admin/faq-categories/list'; 
+		$.ajax({
+			url: action_url,
+			type: "GET",
+			dataType: "json",
+			async: "false",
+			success: function(res) {
+				categoryList = res.data;
+				demo();
+			}
+		})
+	}
+
+	$(document).on('change', '.category-select', function(event) {
+		let id = $(this).val();
+		let faq_id = $(this).data('id');
+
+    	var action_url = url + '/admin/faqs/update-category/' + faq_id; 
+		$.ajax({
+			url: action_url,
+			type: "POST",
+			dataType: "json",
+			data: {category_id: id},
+			async: "false",
+			success: function(res) {
+				// dataTable.reload();
+				if (res.success) {
+					Toast.fire({
+					  type: 'success',
+					  title: 'Category updated.'
+					})
+				}
+			}
+		})
+	});
 
 	$(document).on('click', '.kt_sweetalert_delete_faq', function(event) {
 		var e = $(this);
@@ -126,7 +181,7 @@ var KTDatatableJsonRemoteDemo = function () {
 	return {
 		// public functions
 		init: function () {
-			demo();
+			fetchCategoryList();
 		}
 	};
 }();

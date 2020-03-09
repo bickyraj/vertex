@@ -12,9 +12,11 @@
   </div>
 
   <div class="topbar-search">
-    <form action="{{ route('front.trips.search') }}" method="GET">
-      <input id="header-search" class="form-control" name="keyword" value="{{ request()->get('keyword') }}" type="text" placeholder="Search...">
-      <button type="submit" class="btn btn-accent"><i class="fas fa-search"></i></button>
+    <form id="search-form" action="{{ route('front.trips.search') }}" method="GET">
+      <div class="ui-widget">
+        <input id="header-search" autocomplete="off" class="form-control" name="keyword" value="{{ request()->get('keyword') }}" type="text" placeholder="Search...">
+        <button type="submit" class="btn btn-accent"><i class="fas fa-search"></i></button>
+      </div>
     </form>
   </div>
 
@@ -55,3 +57,7 @@
   @include('front.elements.navbar')
   {{-- end of navbar --}}
 </header>
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('assets/js/search-trips.js') }}"></script>
+@endpush

@@ -94,6 +94,31 @@ class TripController extends Controller
 		return view('front.trips.search', compact('destinations', 'activities', 'trips'));
 	}
 
+	public function searchAjax(Request $request)
+	{
+		$success = false;
+		$message = "";
+		$keyword = $request->keyword;
+		$query = Trip::query();
+
+		if (isset($keyword) && !empty($keyword)) {
+			$query->where([
+				['name', 'LIKE', "%" . $keyword . "%"]
+			]);
+		}
+
+		$trips = $query->select('name', 'slug')->orderBy('name', 'asc')->get();
+		if ($trips) {
+			$success = true;
+			$message = "List fetched successfully.";
+		}
+		return response()->json([
+			'data' => $trips,
+			'success' => $success,
+			'message' => $message
+		]);
+	}
+
 	public function filter(Request $request)
 	{
 		$keyword = $request->keyword;

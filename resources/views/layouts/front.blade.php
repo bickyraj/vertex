@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="{{ asset('assets/front/css/jquery.fancybox.min.css') }}">
   <!-- Custom -->
   <link rel="stylesheet" href="{{ asset('assets/front/css/main.min.css') }}">
-
+  <link rel="stylesheet" href="{{ asset('assets/front/css/front-style.css') }}">
+  @stack('styles')
 </head>
 
 <body data-spy="scroll" data-target="#secondnav" data-offset="160">
@@ -67,10 +68,23 @@
   integrity="sha256-86IE6BxjIc6DQWhu21kSaAYt4+62VrnCr+JkpdajhAY=" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/front/js/app.js') }}"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.5/gsap.min.js"></script> -->
-
-
+@stack('scripts')
 <script>
 $(document).ready(function() {
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          var status = jqXHR.status;
+          if (status == 404) {
+              toastr.warning("Element not found.");
+          } else if (status == 422) {
+              toastr.info(jqXHR.responseJSON.message);
+          }
+      }
+  });
+
   // Hero Slider
   $('.hero .owl-carousel').owlCarousel({
     items: 1,

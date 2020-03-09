@@ -176,6 +176,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
 	Route::get('general', 'SiteSettingController@general')->name('settings.general');
 	Route::post('general/store', 'SiteSettingController@generalStore')->name('settings.general.store');
+	Route::post('social-media/store', 'SiteSettingController@socialMediaStore')->name('settings.socialmedia.store');
 	Route::post('home-page/store', 'SiteSettingController@homePageStore')->name('settings.home-page.store');
 	Route::post('contact-us/store', 'SiteSettingController@contactUsStore')->name('settings.contact-us.store');
 	Route::get('seo-manager', 'SiteSettingController@seoManager')->name('settings.seo-manager');
@@ -218,6 +219,7 @@ Route::get('/why-choose-us', 'Front\WhyChooseController@index')->name('front.why
 Route::get('/print/{slug}', 'Front\TripController@print')->name('front.trips.print');
 Route::get('/trips/filter/{destination_id?}/{activity_id?}/{srotBy?}', 'Front\TripController@filter')->name('front.trips.filter');
 Route::get('/search', 'Front\TripController@search')->name('front.trips.search');
+Route::post('/search-ajax', 'Front\TripController@searchAjax')->name('front.trips.search-ajax');
 Route::get('/trips', 'Front\TripController@list')->name('front.trips.listing');
 Route::get('/trips/{slug}', 'Front\TripController@show')->name('front.trips.show');
 Route::get('/trips/{slug}/departure-booking/{id}', 'Front\TripController@departureBooking')->name('front.trips.departure-booking');

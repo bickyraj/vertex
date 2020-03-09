@@ -1,0 +1,31 @@
+#header-search {
+	color: white !important;
+}
+
+/*jquery ui autocomplete style*/
+.autocomlete-highlight {
+	z-index: 9;
+	background-color: #f9f9f9;
+	width: 300px !important;
+	padding: 0px;
+}
+
+.autocomlete-highlight li {
+	list-style: none;
+}
+.autocomlete-highlight li>div {
+    color: black;
+	display: block;
+    padding: 5px;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+	cursor: pointer;
+	display: block;
+	background-color: #1991a2;
+    color: white;
+    /*font-weight: bold !important;*/
+} 
+/*end of jquery ui autocomplete style*/
