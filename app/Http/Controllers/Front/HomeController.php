@@ -19,7 +19,7 @@ class HomeController extends Controller
 		$block_2_trips = \App\Trip::where('block_2', '=', 1)->latest()->get();
 		$block_3_trips = \App\Trip::where('block_3', '=', 1)->latest()->get();
 		$reviews = \App\TripReview::latest()->limit(4)->published()->get();
-		$blogs = \App\Blog::latest()->limit(5)->get();
+		$blogs = \App\Blog::latest()->limit(3)->get();
 		$why_chooses = \App\WhyChoose::latest()->limit(6)->get();
 
 		return view('front.index', compact('banners', 'block_1_trips', 'block_2_trips', 'block_3_trips', 'blogs', 'reviews', 'why_chooses', 'destinations', 'activities'));

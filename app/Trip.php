@@ -186,7 +186,6 @@ class Trip extends Model
         if (iterator_count($this->activities)) {
             return $this->activities->first()->name;
         }
-
         return "Trekking";
     }
 }
