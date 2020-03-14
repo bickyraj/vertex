@@ -10,7 +10,7 @@
           <!-- Level two dropdown-->
           @foreach($menu->children as $child)
             <li class="{{ (iterator_count($child->children))? 'dropdown-submenu': '' }}">
-              <a id="dropdownMenu2" href="{!! ($child->link)?$child->link:'javascript:;' !!}" role="button" data-toggle="dropdown" aria-haspopup="{!! ($child->link)?false:true !!}"
+              <a id="dropdownMenu{{$child->id}}" href="{!! ($child->link)?$child->link:'javascript:;' !!}" role="button" data-toggle="{{ (iterator_count($child->children))? 'dropdown': '' }}" aria-haspopup="{!! ($child->link)?false:true !!}"
                 aria-expanded="false" class="dropdown-item {{ (iterator_count($child->children))? 'dropdown-toggle': 'nav-link' }}">{{ $child->name }}</a>
                 @if(iterator_count($child->children))
                   @include('front.elements.child-menu', ['children' => $child->children, 'n_count' => 2])
