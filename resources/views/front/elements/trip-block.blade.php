@@ -7,7 +7,7 @@
         {{ $trip->best_value }}
       </div>
       <p class="difficulty">
-        Trekking
+        {!! $trip->trip_activity_type !!}
       </p>
       <!-- <div class="overlay">
         <button class="btn btn-primary">

@@ -38,6 +38,16 @@ class Activity extends Model
 	    return route('front.activities.show', ['slug' => $this->attributes['slug']]);
 	}
 
+	public function trips()
+	{
+		return $this->belongsToMany(Trip::class, 'activity_trip', 'activity_id');
+	}
+
+	public function regions()
+	{
+		return $this->belongsToMany(Region::class, 'activity_region', 'activity_id');
+	}
+
 	/**
 	 * Get all of the seo.
 	 */

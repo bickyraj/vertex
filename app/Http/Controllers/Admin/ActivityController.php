@@ -272,7 +272,13 @@ class ActivityController extends Controller
         $msg = "";
         $path = 'public/activities/';
 
-        if (Activity::find($id)->delete()) {
+        $activity = Activity::find($id);
+        // delete trip activity
+        $activity->trips()->detach();
+        $activity->destinations()->detach();
+        $activity->regions()->detach();
+
+        if ($activity->delete()) {
             Storage::deleteDirectory($path . $id);
             $status = 1;
             $http_status_code = 200;

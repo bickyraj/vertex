@@ -5,7 +5,7 @@
       {{ $trip->best_value }}
     </div>
     <p class="difficulty">
-      Trekking
+      {!! $trip->trip_activity_type !!}
     </p>
     <p class="stars">
       <i class="fas fa-star">

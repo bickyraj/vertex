@@ -668,9 +668,6 @@ $(function() {
         cost: {
           number: true
         },
-        max_altitude: {
-          number: true
-        },
         offer_price: {
           number: true
         }

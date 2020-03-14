@@ -712,9 +712,6 @@ $(function() {
         "trip_seo[og_image]": {
           extension: "jpeg|jpg|png|gif"
         },
-        max_altitude: {
-          number: true
-        },
         cost: {
           number: true
         },

@@ -324,6 +324,7 @@
 
 
         </div>
+
         @if(iterator_count($trip->trip_itineraries))
         <div id="itinerary" class="tour-details-section">
           <h2>Trip Itinerary</h2>
@@ -666,21 +667,21 @@
 
           {{-- addon trips --}}
           @if(iterator_count($trip->addon_trips))
-            @foreach($trip->addon_trips as $trip)
+            @foreach($trip->addon_trips as $addon_trip)
             <div class="package-card-sm">
               <div class="img"
-                style="background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),url('{{ $trip->mediumImageUrl }}')">
+                style="background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),url('{{ $addon_trip->mediumImageUrl }}')">
               </div>
               <div class="info">
-                <h1 class="title">{{ $trip->name }}</h1>
+                <h1 class="title">{{ $addon_trip->name }}</h1>
                 <div class="info-bottom">
-                  <div class="days">{{ $trip->days }}</div>
-                  @if($trip->cost)
-                    <div class="price"><small>from</small> <br><b>USD {{ number_format($trip->cost) }}</b></div>
+                  <div class="days">{{ $addon_trip->days }}</div>
+                  @if($addon_trip->cost)
+                    <div class="price"><small>from</small> <br><b>USD {{ number_format($addon_trip->cost) }}</b></div>
                   @endif
                 </div>
               </div>
-              <a href="{{ $trip->link }}" class="stretched-link"></a>
+              <a href="{{ $addon_trip->link }}" class="stretched-link"></a>
             </div>
             @endforeach
           @endif
@@ -714,17 +715,17 @@
   <div class="container">
     <h2>Similar Trips</h2>
     <div class="row">
-      @foreach($trip->similar_trips as $trip)
+      @foreach($trip->similar_trips as $similar_trip)
       <div class="col-12 col-md-6 col-lg-3">
         <div class="package-card">
           <div class="img-wrapper">
-            <img src="{{ $trip->mediumImageUrl }}" class="img-fluid" alt="">
+            <img src="{{ $similar_trip->mediumImageUrl }}" class="img-fluid" alt="">
             <div class="offer">
-              {{ $trip->best_value }}
+              {{ $similar_trip->best_value }}
               {{-- 10<span>% off</span> --}}
             </div>
             <p class="difficulty">
-              Trekking
+              {!! $similar_trip->trip_activity_type !!}
             </p>
             <p class="stars">
               <i class="fas fa-star">
@@ -740,26 +741,26 @@
             </p>
           </div>
           <div class="info">
-            <a class="title" href="{{ route('front.trips.show', ['slug' => $trip->slug]) }}">
-              {{ $trip->name }}
+            <a class="title" href="{{ route('front.trips.show', ['slug' => $similar_trip->slug]) }}">
+              {{ $similar_trip->name }}
             </a>
             <div class="row">
               <div class="col-4 align-self-end">
                 <p class="duration">
                   <i class="far fa-calendar-alt"></i>
-                  {{ $trip->duration }} days
+                  {{ $similar_trip->duration }} days
                 </p>
               </div>
               <div class="col-8">
                 <p class="price">
                   <s>
-                    USD {{ number_format($trip->cost) }}
+                    USD {{ number_format($similar_trip->cost) }}
                   </s>
                   <span class="currency">
                     USD
                   </span>
                   <span class="amount">
-                    {{ number_format($trip->offer_price) }}
+                    {{ number_format($similar_trip->offer_price) }}
                   </span>
                 </p>
               </div>

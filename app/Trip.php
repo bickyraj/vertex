@@ -9,7 +9,7 @@ class Trip extends Model
 {
     // difficulty_grade = [1 = beginner, 2= easy, 3= moderate, 4= difficult, 5= advance]
 
-    protected $appends = ['difficulty_grade_value', 'imageUrl', 'thumbImageUrl', 'mediumImageUrl', 'mapImageUrl', 'link', 'galleryLink', 'pdf_link'];
+    protected $appends = ['difficulty_grade_value', 'imageUrl', 'thumbImageUrl', 'mediumImageUrl', 'mapImageUrl', 'link', 'galleryLink', 'pdf_link', 'trip_activity_type'];
 
     public function getDifficultyGradeValueAttribute()
     {
@@ -179,5 +179,14 @@ class Trip extends Model
     public function trip_departures()
     {
         return $this->hasMany('App\TripDeparture');
+    }
+
+    public function getTripActivityTypeAttribute()
+    {
+        if (iterator_count($this->activities)) {
+            return $this->activities->first()->name;
+        }
+
+        return "Trekking";
     }
 }

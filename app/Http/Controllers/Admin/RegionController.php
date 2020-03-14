@@ -286,8 +286,14 @@ class RegionController extends Controller
         $http_status_code = 400;
         $msg = "";
         $path = 'public/regions/';
+        $region = Region::find($id);
 
-        if (Region::find($id)->delete()) {
+        // delete relation model.
+        $region->destinations()->detach();
+        $region->activities()->detach();
+        $region->trips()->detach();
+        
+        if ($region->delete()) {
             Storage::deleteDirectory($path . $id);
             $status = 1;
             $http_status_code = 200;

@@ -253,8 +253,11 @@ class DestinationController extends Controller
         $http_status_code = 400;
         $msg = "";
         $path = 'public/destinations/';
+        $destination = Destination::find($id);
 
-        if (Destination::find($id)->delete()) {
+        $destination->trips()->detach();
+
+        if ($destination->delete()) {
             Storage::deleteDirectory($path . $id);
             $status = 1;
             $http_status_code = 200;

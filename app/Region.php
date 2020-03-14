@@ -38,6 +38,11 @@ class Region extends Model
 	    return $this->belongsToMany(Activity::class)->withTimestamps();
 	}
 
+	public function trips()
+	{
+		return $this->belongsToMany(Trip::class)->withTimestamps();
+	}
+
 	public function getLinkAttribute()
 	{
 	    return route('front.regions.show', ['slug' => $this->attributes['slug']]);

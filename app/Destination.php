@@ -41,6 +41,11 @@ class Destination extends Model
         return route('front.destinations.show', ['slug' => $this->attributes['slug']]);
     }
 
+    public function trips()
+    {
+        return $this->belongsToMany(Trip::class)->withTimestamps();
+    }
+
     /**
      * Get all of the seo.
      */
