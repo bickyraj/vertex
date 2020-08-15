@@ -1,11 +1,11 @@
 @extends('layouts.front')
-@section('meta_og_title'){!! Setting::get('homePageSeo')['og_title']??'' !!}@stop 
+@section('meta_og_title'){!! Setting::get('homePageSeo')['og_title']??'' !!}@stop
 @section('meta_description'){!! Setting::get('homePageSeo')['meta_description']??'' !!}@stop
 @section('meta_keywords'){!! Setting::get('homePageSeo')['meta_keywords']??'' !!}@stop
-@section('meta_og_url'){!! Setting::get('homePageSeo')['meta_url']??'' !!}@stop 
-@section('meta_og_site_name'){!! Setting::get('homePageSeo')['og_site_name']??'' !!}@stop 
-@section('meta_og_description'){!! Setting::get('homePageSeo')['og_description']??'' !!}@stop 
-@section('meta_og_image'){!! Setting::getSiteSettingImage(Setting::get('homePageSeo')['og_image']??'') !!}@stop 
+@section('meta_og_url'){!! Setting::get('homePageSeo')['meta_url']??'' !!}@stop
+@section('meta_og_site_name'){!! Setting::get('homePageSeo')['og_site_name']??'' !!}@stop
+@section('meta_og_description'){!! Setting::get('homePageSeo')['og_description']??'' !!}@stop
+@section('meta_og_image'){!! Setting::getSiteSettingImage(Setting::get('homePageSeo')['og_image']??'') !!}@stop
 @push('styles')
 <link href="{{ asset('assets/vendors/bootstrap-rating-master/bootstrap-rating.css') }}" rel="stylesheet">
 @endpush
@@ -33,7 +33,7 @@
   <div class="hero-bottom">
     <div class="search-form">
       <div class="main-heading" role="tab" id="headingOne">
-        <i class="fas fa-search"></i> FIND YOUR HOLIDAY
+        <i class="fas fa-search"></i> FIND YOUR HOLIDAY here
         <a href="#search-accordion-wrapper" data-toggle="collapse" aria-expanded="true" class="stretched-link"></a>
       </div>
       <div id="search-accordion-wrapper" class="collapse show">
@@ -318,7 +318,7 @@
       exploded_ids.splice($.inArray(data.toString(), exploded_ids), 1);
       $('#' + element).val(exploded_ids);
   }
-  
+
   $(function() {
     $(".trip-rating").rating();
 
