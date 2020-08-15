@@ -16,8 +16,8 @@
   <div class="slide" style="background-image: url({{ $trip->imageUrl }})"></div>
   <div class="hero-bottom">
     <div class="container">
-      <h1>{{ $trip->name }}</h1>
-      <nav aria-label="breadcrumb">
+      <h1 style="float: left; display: contents;">{{ $trip->name }}</h1>
+      <nav aria-label="breadcrumb" style="flex: inherit;">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('front.trips.listing') }}">Trips</a></li>

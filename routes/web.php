@@ -164,7 +164,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::get('trips/list', 'TripController@tripList');
 	Route::post('trips', 'TripController@store')->name('trips.store');
 	Route::delete('trips/delete/{id}', 'TripController@destroy')->name('trips.delete');
-	
+
 	// menu routes
 	Route::get('menus', 'MenuController@index')->name('menus.index');
 	Route::get('menus/edit/{id}', 'MenuController@edit')->name('menus.edit');

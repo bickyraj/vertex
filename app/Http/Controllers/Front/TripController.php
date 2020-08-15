@@ -14,7 +14,7 @@ class TripController extends Controller
 	public function show($slug)
 	{
 		$trip = Trip::where('slug', '=', $slug)->with([
-			'trip_galleries', 
+			'trip_galleries',
 			'trip_info',
 			'trip_include_exclude',
 			'trip_itineraries',
@@ -67,14 +67,14 @@ class TripController extends Controller
 				$destination_ids = explode(',', $request->dest);
 				$query->whereHas('destination', function($q) use ($destination_ids) {
 					$q->whereIn('destinations.id', $destination_ids);
-				}); 
+				});
 			}
 
 			if ($activity_ids) {
 				$activity_ids = explode(',', $request->act);
 				$query->whereHas('activities', function($q) use ($activity_ids) {
 					$q->whereIn('activities.id', $activity_ids);
-				}); 
+				});
 			}
 
 			if ($sortBy) {
@@ -137,13 +137,13 @@ class TripController extends Controller
 			if ($destination_id) {
 				$query->whereHas('destination', function($q) use ($destination_id) {
 					$q->where('destinations.id', '=', $destination_id);
-				}); 
+				});
 			}
 
 			if ($activity_id) {
 				$query->whereHas('activities', function($q) use ($activity_id) {
 					$q->where('activities.id', '=', $activity_id);
-				}); 
+				});
 			}
 
 			if ($sortBy) {
