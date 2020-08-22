@@ -129,11 +129,17 @@ class TripController extends Controller
 
 		$query = Trip::query();
 
-		if (isset($keyword) && !empty($keyword)) {
-			$query->where([
-				['name', 'LIKE', "%" . $keyword . "%"]
-			]);
-		} else {
+		// if (isset($keyword) && !empty($keyword)) {
+		// 	$query->where([
+		// 		['name', 'LIKE', "%" . $keyword . "%"]
+		// 	]);
+		// } else {
+
+            if (isset($keyword) && !empty($keyword)) {
+                $query->where([
+                    ['name', 'LIKE', "%" . $keyword . "%"]
+                ]);
+            }
 
             if ($region) {
                 $query->whereHas('region', function($q) use ($region) {
@@ -160,7 +166,7 @@ class TripController extends Controller
 					$query->orderBy('offer_price', 'DESC');
 				}
 			}
-		}
+		// }
 
 
 		$trips = $query->latest()->get();
