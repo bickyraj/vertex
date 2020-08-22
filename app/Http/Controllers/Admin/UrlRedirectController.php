@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Faq;
-use Image;
-use Illuminate\Support\Facades\Log;
+use App\UrlRedirect;
 
-class FaqController extends Controller
+class UrlRedirectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = Faq::get()->toArray();
-        return view('admin.faqs.index', compact('faqs'));
+        $url_redirects = UrlRedirect::get()->toArray();
+        return view('admin.urlRedirects.index', compact('url_redirects'));
     }
 
     /**
@@ -29,7 +26,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('admin.faqs.add');
+        return view('admin.urlRedirects.add');
     }
 
     /**
@@ -41,20 +38,19 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
+            'from_url' => 'required',
+            'to_url' => 'required',
         ]);
 
         $status = 0;
         $msg = "";
-        $faq = new Faq;
-        $faq->title = $request->title;
-        $faq->content = $request->content;
-        $faq->slug = $this->create_slug_title($faq->title);
-        $faq->status = 1;
+        $url_redirect = new UrlRedirect;
+        $url_redirect->fill($request->all());
 
-        if ($faq->save()) {
+        if ($url_redirect->save()) {
             $status = 1;
-            $msg = "Faq created successfully.";
+            $msg = "Redirection created successfully.";
             session()->flash('message', $msg);
         }
 
@@ -83,8 +79,8 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        $faq = Faq::find($id);
-        return view('admin.faqs.edit', compact('faq'));
+        $url_redirect = UrlRedirect::find($id);
+        return view('admin.urlRedirects.edit', compact('url_redirect'));
     }
 
     /**
@@ -97,20 +93,19 @@ class FaqController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'title' => 'required'
+            'name' => 'required',
+            'from_url' => 'required',
+            'to_url' => 'required'
         ]);
 
         $status = 0;
         $msg = "";
-        $faq = Faq::find($request->id);
-        $faq->title = $request->title;
-        $faq->content = $request->content;
-        $faq->slug = $this->create_slug_title($faq->title);
-        $faq->status = 1;
+        $url_redirect = UrlRedirect::find($request->id);
+        $url_redirect->fill($request->all());
 
-        if ($faq->save()) {
+        if ($url_redirect->save()) {
             $status = 1;
-            $msg = "Faq updated successfully.";
+            $msg = "Redirection updated successfully.";
             session()->flash('message', $msg);
         }
 
@@ -131,12 +126,10 @@ class FaqController extends Controller
         $status = 0;
         $http_status_code = 400;
         $msg = "";
-        $path = 'public/faqs/';
-
-        if (Faq::find($id)->delete()) {
+        if (UrlRedirect::find($id)->delete()) {
             $status = 1;
             $http_status_code = 200;
-            $msg = "Faq has been deleted";
+            $msg = "Redirection has been deleted";
         }
 
         return response()->json([
@@ -147,7 +140,7 @@ class FaqController extends Controller
 
     public function faqList()
     {
-        $faqs = Faq::all();
+        $faqs = UrlRedirect::all();
         return response()->json([
             'data' => $faqs
         ]);

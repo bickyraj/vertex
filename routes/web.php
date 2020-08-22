@@ -49,7 +49,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::get('faqs/add', 'FaqController@create')->name('faqs.add');
 	Route::get('faqs/list', 'FaqController@faqList');
 	Route::post('faqs', 'FaqController@store')->name('faqs.store');
-	Route::delete('faqs/delete/{id}', 'FaqController@destroy')->name('faqs.delete');
+    Route::delete('faqs/delete/{id}', 'FaqController@destroy')->name('faqs.delete');
+
+    // REDIRECTION MANAGER ROUTE
+    Route::get('redirection-managers', 'UrlRedirectController@index')->name('redirection-managers');
+    Route::get('redirection-managers/edit/{id}', 'UrlRedirectController@edit')->name('redirection-managers.edit');
+    Route::post('redirection-managers/update', 'UrlRedirectController@update')->name('redirection-managers.update');
+    Route::get('redirection-managers/add', 'UrlRedirectController@create')->name('redirection-managers.add');
+    Route::get('redirection-managers/list', 'UrlRedirectController@faqList');
+    Route::post('redirection-managers', 'UrlRedirectController@store')->name('redirection-managers.store');
+    Route::delete('redirection-managers/delete/{id}', 'UrlRedirectController@destroy')->name('redirection-managers.delete');
+    // END OF REDIRECTION MANAGER ROUTE
 
 	Route::get('subscribers', 'EmailSubscriberController@index')->name('subscribers.index');
 	Route::get('subscribers/export-to-excel', 'EmailSubscriberController@exportToExcel')->name('subscribers.export-excel');
@@ -201,37 +211,38 @@ Route::get('/system-clear-cache', function() {
     Artisan::call('migrate');
     return "Cache is cleared";
 });
+Route::group(['middleware' => ['url-redirect']], function () {
+    Route::post('/subscribe', 'Front\EmailSubscriberController@store')->name('front.email-subscribers.store');
+    Route::get('/blogs', 'Front\BlogController@index')->name('front.blogs.index');
+    Route::get('/gallery', 'Front\TripController@allTripGallery')->name('front.trips.all-gallery');
+    Route::get('/gallery/{slug}', 'Front\TripController@gallery')->name('front.trips.galleries');
+    Route::get('/legal-documents', 'Front\DocumentController@index')->name('front.documents.index');
+    Route::get('/faqs', 'Front\HomeController@faqs')->name('front.faqs.index');
+    Route::get('/contact-us', 'Front\HomeController@contact')->name('front.contact.index');
+    Route::post('/contact', 'Front\HomeController@contactStore')->name('front.contact.store');
+    Route::get('/reviews', 'Front\HomeController@reviews')->name('front.reviews.index');
+    Route::post('/reviews', 'Front\TripReviewController@store')->name('front.reviews.store');
 
-Route::post('/subscribe', 'Front\EmailSubscriberController@store')->name('front.email-subscribers.store');
-Route::get('/blogs', 'Front\BlogController@index')->name('front.blogs.index');
-Route::get('/gallery', 'Front\TripController@allTripGallery')->name('front.trips.all-gallery');
-Route::get('/gallery/{slug}', 'Front\TripController@gallery')->name('front.trips.galleries');
-Route::get('/legal-documents', 'Front\DocumentController@index')->name('front.documents.index');
-Route::get('/faqs', 'Front\HomeController@faqs')->name('front.faqs.index');
-Route::get('/contact-us', 'Front\HomeController@contact')->name('front.contact.index');
-Route::post('/contact', 'Front\HomeController@contactStore')->name('front.contact.store');
-Route::get('/reviews', 'Front\HomeController@reviews')->name('front.reviews.index');
-Route::post('/reviews', 'Front\TripReviewController@store')->name('front.reviews.store');
+    Route::get('/why-choose-us', 'Front\WhyChooseController@index')->name('front.why-chooses.index');
+    // Route::get('/why-choose-us/{id}', 'Front\WhyChooseController@show')->name('front.why-chooses.show');
 
-Route::get('/why-choose-us', 'Front\WhyChooseController@index')->name('front.why-chooses.index');
-// Route::get('/why-choose-us/{id}', 'Front\WhyChooseController@show')->name('front.why-chooses.show');
-
-Route::get('/print/{slug}', 'Front\TripController@print')->name('front.trips.print');
-Route::get('/trips/filter/{region?}/{destination_id?}/{activity_id?}/{srotBy?}', 'Front\TripController@filter')->name('front.trips.filter');
-Route::get('/search', 'Front\TripController@search')->name('front.trips.search');
-Route::post('/search-ajax', 'Front\TripController@searchAjax')->name('front.trips.search-ajax');
-Route::get('/trips', 'Front\TripController@list')->name('front.trips.listing');
-Route::get('/trips/{slug}', 'Front\TripController@show')->name('front.trips.show');
-Route::get('/trips/{slug}/departure-booking/{id}', 'Front\TripController@departureBooking')->name('front.trips.departure-booking');
-Route::get('/trips/{slug}/booking', 'Front\TripController@booking')->name('front.trips.booking');
-Route::get('/trips/{slug}/customize', 'Front\TripController@customize')->name('front.trips.customize');
-Route::post('/trips/departure-booking', 'Front\TripController@departureBookingStore')->name('front.trips.departure-booking.store');
-Route::post('/trips/booking', 'Front\TripController@bookingStore')->name('front.trips.booking.store');
-Route::post('/trips/customize', 'Front\TripController@customizeStore')->name('front.trips.customize.store');
-Route::get('/destinations/{slug}', 'Front\DestinationController@show')->name('front.destinations.show');
-Route::get('/activities/{slug}', 'Front\ActivityController@show')->name('front.activities.show');
-Route::get('/regions/{slug}', 'Front\RegionController@show')->name('front.regions.show');
-Route::get('/blogs/{slug}', 'Front\BlogController@show')->name('front.blogs.show');
-Route::get('/teams', 'Front\TeamController@index')->name('front.teams.index');
-Route::get('/teams/{slug}', 'Front\TeamController@show')->name('front.teams.show');
-Route::get('{slug}', 'Front\PageController@show')->name('front.pages.show');
+    Route::get('/print/{slug}', 'Front\TripController@print')->name('front.trips.print');
+    Route::get('/trips/filter/{region?}/{destination_id?}/{activity_id?}/{srotBy?}', 'Front\TripController@filter')->name('front.trips.filter');
+    Route::get('/search', 'Front\TripController@search')->name('front.trips.search');
+    Route::post('/search-ajax', 'Front\TripController@searchAjax')->name('front.trips.search-ajax');
+    Route::get('/trips', 'Front\TripController@list')->name('front.trips.listing');
+    Route::get('/trips/{slug}', 'Front\TripController@show')->name('front.trips.show');
+    Route::get('/trips/{slug}/departure-booking/{id}', 'Front\TripController@departureBooking')->name('front.trips.departure-booking');
+    Route::get('/trips/{slug}/booking', 'Front\TripController@booking')->name('front.trips.booking');
+    Route::get('/trips/{slug}/customize', 'Front\TripController@customize')->name('front.trips.customize');
+    Route::post('/trips/departure-booking', 'Front\TripController@departureBookingStore')->name('front.trips.departure-booking.store');
+    Route::post('/trips/booking', 'Front\TripController@bookingStore')->name('front.trips.booking.store');
+    Route::post('/trips/customize', 'Front\TripController@customizeStore')->name('front.trips.customize.store');
+    Route::get('/destinations/{slug}', 'Front\DestinationController@show')->name('front.destinations.show');
+    Route::get('/activities/{slug}', 'Front\ActivityController@show')->name('front.activities.show');
+    Route::get('/regions/{slug}', 'Front\RegionController@show')->name('front.regions.show');
+    Route::get('/blogs/{slug}', 'Front\BlogController@show')->name('front.blogs.show');
+    Route::get('/teams', 'Front\TeamController@index')->name('front.teams.index');
+    Route::get('/teams/{slug}', 'Front\TeamController@show')->name('front.teams.show');
+    Route::get('{slug}', 'Front\PageController@show')->name('front.pages.show');
+});

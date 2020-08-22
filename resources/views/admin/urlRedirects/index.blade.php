@@ -9,7 +9,7 @@
                     <i class="kt-font-brand flaticon2-laptop"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    FAQs
+                    Redirection Manager
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -20,7 +20,7 @@
                     </a> --}}
                     &nbsp;
                     <div class="dropdown dropdown-inline">
-                        <a href="{{ route('admin.faqs.add') }}" class="btn btn-sm btn-brand btn-icon-sm">
+                        <a href="{{ route('admin.redirection-managers.add') }}" class="btn btn-sm btn-brand btn-icon-sm">
                             <i class="flaticon2-plus"></i> Add New
                         </a>
                     </div>
@@ -57,5 +57,5 @@
 <!-- end:: Content -->
 @endsection
 @push('scripts')
-<script src="./assets/js/data-faq-list.js" data-id="faq-list-script" data-url="{{ url('/') }}" type="text/javascript"></script>
+<script src="./assets/js/data-redirection-managers-list.js" data-id="redirection-list-script" data-url="{{ url('/') }}" type="text/javascript"></script>
 @endpush
