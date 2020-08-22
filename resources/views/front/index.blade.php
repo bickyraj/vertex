@@ -243,44 +243,15 @@
 </section>
 
 <!-- Instagram Gallery -->
+@if (iterator_count($instagram_galleries))
 <section class="ig-gallery container">
-  <div class="photo">
-    <img
-      src="https://scontent-atl3-1.cdninstagram.com/vp/d403095589ce72575dcb8cf29ab23b6e/5E536FA8/t51.2885-15/sh0.08/e35/s640x640/72669377_128389094839211_6751964122798869818_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=111"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
-  <div class="photo">
-    <img
-      src="https://scontent-atl3-1.cdninstagram.com/vp/c877a7c66b1d3e0f7b1f9333428665bf/5E44CBE5/t51.2885-15/sh0.08/e35/p640x640/76936880_555033178650158_5928925441178817331_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=102"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
-  <div class="photo">
-    <img
-      src="https://scontent-atl3-1.cdninstagram.com/vp/040423822d8688ce4417ebe0fae13992/5E590262/t51.2885-15/sh0.08/e35/s640x640/75595221_183526632824264_5668652172425696987_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=108"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
-  <div class="photo">
-    <img
-      src="https://instagram.fktm7-1.fna.fbcdn.net/v/t51.2885-15/e15/p640x640/79245086_260432848264586_2681944129594750745_n.jpg?_nc_ht=instagram.fktm7-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=JQaHNtOoP1EAX9htHnd&oh=0e1e89a8246af82d033c61863ec0dee5&oe=5ED5C8F5"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
-  <div class="photo">
-    <img
-      src="https://instagram.fktm7-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/77403860_478456416129773_1864207258660736952_n.jpg?_nc_ht=instagram.fktm7-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=HEXP6h-QFccAX-iJ2HU&oh=262ef784f8b15f576a026d559d7fb70f&oe=5EA7872F"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
-  <div class="photo">
-    <img
-      src="https://instagram.fktm7-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/p640x640/72396310_122309295876347_3454222550197836393_n.jpg?_nc_ht=instagram.fktm7-1.fna.fbcdn.net&_nc_cat=111&_nc_ohc=0sS4ZczIs60AX-QM1J6&oh=2e509f526e87cdd05e92353e8a13586c&oe=5EBB8A8D"
-      alt="">
-    <i class="fab fa-instagram"></i>
-  </div>
+    @foreach ($instagram_galleries as $gallery)
+    <div class="photo">
+      <img src="{{ $gallery->image }}" alt=""> <i class="fab fa-instagram"></i>
+    </div>
+    @endforeach
 </section>
+@endif
 
 <!-- Latest News -->
 @if(iterator_count($blogs))

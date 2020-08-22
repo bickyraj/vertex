@@ -51,7 +51,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::post('faqs', 'FaqController@store')->name('faqs.store');
     Route::delete('faqs/delete/{id}', 'FaqController@destroy')->name('faqs.delete');
 
-    // REDIRECTION MANAGER ROUTE
+    // INSTAGRAM GALLERY ROUTES
+    Route::get('instagram-galleries', 'InstagramGalleryController@index')->name('instagram-galleries.index');
+    Route::get('instagram-galleries/edit/{id}', 'InstagramGalleryController@edit')->name('instagram-galleries.edit');
+    Route::post('instagram-galleries/update', 'InstagramGalleryController@update')->name('instagram-galleries.update');
+    Route::get('instagram-galleries/add', 'InstagramGalleryController@create')->name('instagram-galleries.add');
+    Route::get('instagram-galleries/list', 'InstagramGalleryController@faqList');
+    Route::post('instagram-galleries', 'InstagramGalleryController@store')->name('instagram-galleries.store');
+    Route::delete('instagram-galleries/delete/{id}', 'InstagramGalleryController@destroy')->name('instagram-galleries.delete');
+    // END OF INSTSAGRAM GALLERY ROUTES
+
+    // REDIRECTION MANAGER ROUTES
     Route::get('redirection-managers', 'UrlRedirectController@index')->name('redirection-managers');
     Route::get('redirection-managers/edit/{id}', 'UrlRedirectController@edit')->name('redirection-managers.edit');
     Route::post('redirection-managers/update', 'UrlRedirectController@update')->name('redirection-managers.update');
@@ -59,7 +69,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('redirection-managers/list', 'UrlRedirectController@faqList');
     Route::post('redirection-managers', 'UrlRedirectController@store')->name('redirection-managers.store');
     Route::delete('redirection-managers/delete/{id}', 'UrlRedirectController@destroy')->name('redirection-managers.delete');
-    // END OF REDIRECTION MANAGER ROUTE
+    // END OF REDIRECTION MANAGER ROUTES
 
 	Route::get('subscribers', 'EmailSubscriberController@index')->name('subscribers.index');
 	Route::get('subscribers/export-to-excel', 'EmailSubscriberController@exportToExcel')->name('subscribers.export-excel');
