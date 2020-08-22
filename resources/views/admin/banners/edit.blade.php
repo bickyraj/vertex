@@ -46,6 +46,14 @@
                             <input type="text" value="{{ $banner->image_alt }}" name="image_alt" class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
+                            <label>Button Name</label>
+                            <input type="text" name="btn_name" value="{{ $banner->btn_name }}" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Button Link</label>
+                            <input type="text" name="btn_link" value="{{ $banner->btn_link }}" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
                             <label>Caption</label>
                             <input type="text" value="{{ $banner->caption }}" name="caption" class="form-control" placeholder="">
                         </div>

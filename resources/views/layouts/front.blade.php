@@ -14,10 +14,31 @@
   <meta name="keywords" content="@yield('meta_keywords')" />
   <meta property="og:title" content="@yield('meta_og_title')" />
   <meta property="og:url" content="@yield('meta_og_url')" />
-  <meta property="og:site_name" content="@yield('meta_og_site_name', Setting::get('site_name')??'Namaste Nepal Trekking & Research Hub Pvt.Ltd')" />
+  <meta property="og:site_name" content="@yield('meta_og_site_name', Setting::get('site_name')??'Vertex Holiday Pvt.Ltd')" />
   <meta property="og:image" content="@yield('meta_og_image')" />
   <meta property="og:description" content="@yield('meta_og_description')" />
   {{-- end of meta tags --}}
+
+  <meta name="IndexType" content="{{ Setting::get('site_name') }}"/>
+  <meta name="language" content="EN-US"/>
+  <meta name="type" content="Trekking"/>
+  <meta name="classification" content="Trekking, Tour operator in Nepal"/>
+  <meta name="company" content="{{ Setting::get('site_name') }}"/>
+  <meta name="author" content="{{ Setting::get('site_name') }}"/>
+  <meta name="contact person" content="{{ Setting::get('site_name') }}"/>
+  <meta name="copyright" content=""/>
+  <meta name="security" content="public"/>
+  <meta content="all" name="robots"/>
+  <meta name="document-type" content="Public"/>
+  <meta name="category" content="Trekking in Nepal"/>
+  <meta name="robots" content="all,index"/>
+  <meta name="googlebot" content="INDEX, FOLLOW" />
+  <meta name="YahooSeeker" content="INDEX, FOLLOW" />
+  <meta name="msnbot" content="INDEX, FOLLOW" />
+  <meta name="allow-search" content="Yes" />
+  <meta name="doc-rights" content="{{ Setting::get('site_name') }}" />
+  <meta name="doc-publisher" content="www.vertexholiday.com" />
+  <meta name="p:domain_verify" content=""/>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/front/css/all.min.css') }}">

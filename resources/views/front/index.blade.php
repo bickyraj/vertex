@@ -22,7 +22,9 @@
             <p class="main">
               {{ $banner->caption }}
             </p>
-            {{-- <button class="btn btn-primary">Learn more</button> --}}
+            @if ($banner->btn_name)
+            <a href="{{ $banner->btn_link }}" class="btn btn-primary">{{ $banner->btn_name }}</a>
+            @endif
           </div>
         </div>
       </div>

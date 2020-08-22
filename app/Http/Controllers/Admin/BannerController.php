@@ -45,6 +45,8 @@ class BannerController extends Controller
 	    $banner->status = 1;
 	    $banner->caption = $request->caption;
 	    $banner->image_alt = $request->image_alt;
+	    $banner->btn_name = $request->btn_name;
+	    $banner->btn_link = $request->btn_link;
 
 	    if ($request->hasFile('file')) {
 	        $imageName = $request->file->getClientOriginalName();
@@ -128,7 +130,9 @@ class BannerController extends Controller
 	    $msg = "";
 	    $banner = Banner::find($request->id);
 	    $banner->image_alt = $request->image_alt;
-	    $banner->caption = $request->caption;
+        $banner->caption = $request->caption;
+        $banner->btn_name = $request->btn_name;
+        $banner->btn_link = $request->btn_link;
 	    $banner->status = 1;
 
 	    if ($request->hasFile('file')) {
