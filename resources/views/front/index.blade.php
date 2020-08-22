@@ -12,11 +12,10 @@
 @section('content')
 <!-- Hero -->
 <section class="hero">
-  <div class="owl-carousel">
-
+  <div id="banner-carousel" class="owl-carousel">
     @if(iterator_count($banners))
       @foreach($banners as $banner)
-      <div class="slide" style="background-image: url('{{ $banner->imageUrl }}')">
+      <div class="slide" style="background-image: url('{{ $banner->thumbImageUrl }}')" data-image-src="{{ $banner->imageUrl }}">
         <div class="container">
           <div class="text">
             <p class="main">
@@ -322,8 +321,18 @@
   }
 
   $(function() {
-    $(".trip-rating").rating();
 
+    $("#banner-carousel>.slide").each(function(i, v) {
+        let img = new Image();
+        let image_src = $(v).data('image-src');
+        img.onload = function() {
+            $(v).css('background-image', 'url('+ image_src + ')');
+        }
+        img.src = image_src;
+        if (img.complete) img.onload();
+    });
+
+    $(".trip-rating").rating();
     // banner search
     $('.dest-select').on('click', function () {
         var that = $(this);
