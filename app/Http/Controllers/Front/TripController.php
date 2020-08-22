@@ -121,7 +121,8 @@ class TripController extends Controller
 
 	public function filter(Request $request)
 	{
-		$keyword = $request->keyword;
+        $keyword = $request->keyword;
+        $region = $request->region;
 		$destination_id = $request->destination_id;
 		$activity_id = $request->activity_id;
 		$sortBy = $request->sortBy;
@@ -133,6 +134,12 @@ class TripController extends Controller
 				['name', 'LIKE', "%" . $keyword . "%"]
 			]);
 		} else {
+
+            if ($region) {
+                $query->whereHas('region', function($q) use ($region) {
+                    $q->where('regions.slug', '=', $region);
+                });
+            }
 
 			if ($destination_id) {
 				$query->whereHas('destination', function($q) use ($destination_id) {

@@ -217,7 +217,7 @@ Route::get('/why-choose-us', 'Front\WhyChooseController@index')->name('front.why
 // Route::get('/why-choose-us/{id}', 'Front\WhyChooseController@show')->name('front.why-chooses.show');
 
 Route::get('/print/{slug}', 'Front\TripController@print')->name('front.trips.print');
-Route::get('/trips/filter/{destination_id?}/{activity_id?}/{srotBy?}', 'Front\TripController@filter')->name('front.trips.filter');
+Route::get('/trips/filter/{region?}/{destination_id?}/{activity_id?}/{srotBy?}', 'Front\TripController@filter')->name('front.trips.filter');
 Route::get('/search', 'Front\TripController@search')->name('front.trips.search');
 Route::post('/search-ajax', 'Front\TripController@searchAjax')->name('front.trips.search-ajax');
 Route::get('/trips', 'Front\TripController@list')->name('front.trips.listing');

@@ -1,10 +1,10 @@
 @extends('layouts.front')
-@section('meta_og_title'){!! $seo->meta_title??'' !!}@stop 
+@section('meta_og_title'){!! $seo->meta_title??'' !!}@stop
 @section('meta_description'){!! $seo->meta_description??'' !!}@stop
 @section('meta_keywords'){!! $seo->meta_keywords??'' !!}@stop
-@section('meta_og_url'){!! $seo->canonical_url??'' !!}@stop 
-@section('meta_og_description'){!! $seo->meta_description??'' !!}@stop 
-@section('meta_og_image'){!! $seo->socialImageUrl??'' !!}@stop 
+@section('meta_og_url'){!! $seo->canonical_url??'' !!}@stop
+@section('meta_og_description'){!! $seo->meta_description??'' !!}@stop
+@section('meta_og_image'){!! $seo->socialImageUrl??'' !!}@stop
 @section('content')
 <!-- Hero -->
 <section class="hero-second">
@@ -89,7 +89,7 @@
   /* Gets called when request is sent */
   $(document).ajaxSend(function(evt, req, set){
   });
-  
+
   /* Gets called when request complete */
   $(document).ajaxComplete(function(event,request,settings){
   });
@@ -103,7 +103,8 @@
     var destination_id = $("#select-destination").val();
     var activity_id = $("#select-activity").val();
     var sortBy = $("#select-sort").val();
-    var url = "{{ url('trips/filter') }}" + "?destination_id=" + destination_id + "&activity_id=" + activity_id + "&sortBy=" + sortBy;
+    var region = '{!! $region->slug !!}';
+    var url = "{{ url('trips/filter') }}" + "?region="+region+"&destination_id=" + destination_id + "&activity_id=" + activity_id + "&sortBy=" + sortBy;
     $.ajax({
       url: url,
       type: "GET",
