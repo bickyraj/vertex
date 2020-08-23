@@ -490,11 +490,9 @@
                                 sessionStorage.setItem("save-and-continue", true);
                             }
 
-                            location.href = '{{ url(' / admin / trips / edit ') }}' + '/' + res.trip
-                                .id;
+                            location.href = '{{ url("/admin/trips/edit")}}' + '/' + res.trip.id;
                         } else {
-                            location.href = '{{ route('
-                            admin.trips.index ') }}';
+                            location.href = '{{ route("admin.trips.index") }}';
                         }
                     }
                 }
