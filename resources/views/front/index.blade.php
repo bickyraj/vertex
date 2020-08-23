@@ -8,6 +8,34 @@
 @section('meta_og_image'){!! Setting::getSiteSettingImage(Setting::get('homePageSeo')['og_image']??'') !!}@stop
 @push('styles')
 <link href="{{ asset('assets/vendors/bootstrap-rating-master/bootstrap-rating.css') }}" rel="stylesheet">
+<style>
+    .close-modal {
+        font-weight: normal;
+        position: absolute;
+        right: 6px;
+        top: 4px;
+        display: block;
+        cursor: pointer;
+        color: #5a5a5a;
+        opacity: 1;
+        z-index: 999;
+    }
+    .close-modal:focus {
+        outline: none;
+    }
+
+    .insta-detail-btn {
+        cursor: pointer;
+    }
+
+    #instagramModal .modal-body {
+        min-height: 200px;
+    }
+
+    #instagramModal .modal-body .insta-embed>iframe {
+        border: none !important;
+    }
+</style>
 @endpush
 @section('content')
 <!-- Hero -->
@@ -246,8 +274,8 @@
 @if (iterator_count($instagram_galleries))
 <section class="ig-gallery container">
     @foreach ($instagram_galleries as $gallery)
-    <div class="photo">
-      <img src="{{ $gallery->image }}" alt=""> <i class="fab fa-instagram"></i>
+    <div class="photo" data-insta-id="{{ $gallery->id }}">
+      <img src="{{ $gallery->image }}" alt=""> <i class="fab fa-instagram insta-detail-btn"></i>
     </div>
     @endforeach
 </section>
@@ -270,8 +298,25 @@
   </div>
 </section>
 @endif
+{{-- END OF LATEST NEWS --}}
+
+{{-- INSTAGRAM DETAIL MODAL --}}
+<div id="instagramModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+        <div class="modal-body">
+            <div class="insta-embed" style="display: none;"></div>
+        </div>
+    </div>
+  </div>
+</div>
+{{-- END OF INSTAGRAM DETAIL MODAL --}}
+
 @endsection
 @push('scripts')
+<script async src="//www.instagram.com/embed.js"></script>
 <script src="{{ asset('assets/vendors/bootstrap-rating-master/bootstrap-rating.min.js') }}"></script>
 <script type="text/javascript">
 
@@ -292,6 +337,26 @@
   }
 
   $(function() {
+    const insta_gallery = {!! $instagram_galleries !!};
+    $('#instagramModal').on('hidden.bs.modal', function (e) {
+        $(this).find('.insta-embed').html('').hide();
+    });
+
+    window.__igEmbedLoaded = function( loadedItem ) {
+        $('#instagramModal').find('.insta-embed').show();
+    };
+
+    $(".insta-detail-btn").on('click', function(event) {
+        let modal = $("#instagramModal");
+        let insta_id = $(this).closest('.photo').data('insta-id');
+
+        let insta = insta_gallery.filter(obj => {
+            return obj.id == insta_id
+        })[0]
+        modal.find('.insta-embed').html(insta.embed);
+        instgrm.Embeds.process()
+        modal.modal('show');
+    });
 
     $("#banner-carousel>.slide").each(function(i, v) {
         let img = new Image();
