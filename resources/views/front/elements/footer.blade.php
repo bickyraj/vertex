@@ -68,7 +68,7 @@
               <tr>
                 <td><i class="fas fa-map-marker fa-fw icon"></i></td>
                 <td>
-                  {{ Setting::get('address') }} 
+                  {{ Setting::get('address') }}
                   <br>
                   <small>
                     {{ Setting::get('office_time') }}
