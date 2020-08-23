@@ -24,7 +24,8 @@ class TripController extends Controller
 			'trip_faqs',
 			'trip_seo',
 			'trip_departures' => function($q) {
-				$q->orderBy('from_date', 'DESC');
+                $current_date = date('Y-m-d');
+				$q->where('from_date', '>=', $current_date)->orderBy('from_date', 'DESC');
 			}
 		])->first();
 

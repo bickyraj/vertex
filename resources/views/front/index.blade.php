@@ -34,7 +34,7 @@
   <div class="hero-bottom">
     <div class="search-form">
       <div class="main-heading" role="tab" id="headingOne">
-        <i class="fas fa-search"></i> FIND YOUR HOLIDAY here
+        <i class="fas fa-search"></i> FIND YOUR HOLIDAY
         <a href="#search-accordion-wrapper" data-toggle="collapse" aria-expanded="true" class="stretched-link"></a>
       </div>
       <div id="search-accordion-wrapper" class="collapse show">
