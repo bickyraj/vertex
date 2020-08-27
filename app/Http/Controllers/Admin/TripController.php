@@ -794,7 +794,7 @@ class TripController extends Controller
             } else {
                 $trip->block_1 = 1;
             }
-
+            \Log::info($trip->block_1);
             if ($trip->save()) {
                 $message = "Trip has been featured.";
                 $success = true;
