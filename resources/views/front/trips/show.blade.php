@@ -314,11 +314,9 @@
 
                         <div class="trip-note mb-3">
                             <p class="font-weight-bold mb-0"><i class="fas fa-info"></i> Important Note</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam aspernatur corporis,
-                                quibusdam
-                                nostrum itaque cum quod quaerat ea! Unde magnam provident quod! Fugit in enim deleniti
-                                ex, tenetur modi
-                                neque?</p>
+                            <p>
+                                {!! ($trip->trip_seo)?$trip->trip_seo->leader:'' !!}
+                            </p>
                         </div>
                     </div>
                     <p class="text-center">
