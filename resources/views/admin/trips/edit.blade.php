@@ -56,7 +56,7 @@
                                   <i class="la la-file-image-o"></i> Sliders
                               </a>
                           </li>
-                      </ul>                  
+                      </ul>
 
 
                       <div id="trip-tab" class="tab-content trip-tab-form">
@@ -413,7 +413,7 @@
                               </div>
 
                               <div class="form-group row">
-                                <label class="col-lg-2 col-form-label">About Leader</label>
+                                <label class="col-lg-2 col-form-label">Important Note</label>
                                 <div class="col-lg-7">
                                   <div id="summernote-leader" class="summernote">
                                     <?= (($trip->trip_seo)?$trip->trip_seo->about_leader:''); ?>
@@ -1134,7 +1134,7 @@ $(function() {
       }).then(function(result) {
           if (result.value) {
             var id = e.attr('data-id');
-            var action_url = '{{ url('') }}' + '/admin/trip/gallery/delete/' + id; 
+            var action_url = '{{ url('') }}' + '/admin/trip/gallery/delete/' + id;
             $.ajax({
               url: action_url,
               type: "DELETE",
