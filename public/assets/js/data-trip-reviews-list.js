@@ -63,7 +63,7 @@ var KTDatatableJsonRemoteDemo = function () {
 						<div class="col-3">\
 						  <span class="kt-switch kt-switch--sm kt-switch--icon">\
 						  <label>\
-						  <input type="checkbox" data-id="'+item.id+'" '+((item.status == 1)?"checked":"") +' id="publishSwitch" value="1" name="show_status">\
+						  <input type="checkbox" data-id="'+item.id+'" '+((item.status == 1)?'checked':'') +' id="publishSwitch" value="1" name="show_status">\
 						  <span></span>\
 						  </label>\
 						  </span>\
