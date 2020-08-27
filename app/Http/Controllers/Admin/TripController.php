@@ -591,7 +591,7 @@ class TripController extends Controller
         if (isset($trip->trip_itineraries) && !empty($trip->trip_itineraries)) {
             $trip->trip_itineraries()->delete();
         }
-        
+
         $trip->trip_itineraries()->createMany($trip_itineraries);
 
         $status = 1;
@@ -788,6 +788,7 @@ class TripController extends Controller
         $trip = Trip::find($id);
 
         if ($trip) {
+            \Log::info($trip->block1);
             if ($trip->block_1 == 1) {
                 $trip->block_1 = 0;
             } else {
