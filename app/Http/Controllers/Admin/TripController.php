@@ -788,13 +788,11 @@ class TripController extends Controller
         $trip = Trip::find($id);
 
         if ($trip) {
-            \Log::info($trip->block_1);
             if ($trip->block_1 == 1) {
                 $trip->block_1 = 0;
             } else {
                 $trip->block_1 = 1;
             }
-            \Log::info($trip->block_1);
             if ($trip->save()) {
                 $message = "Trip has been featured.";
                 $success = true;

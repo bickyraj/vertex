@@ -63,7 +63,7 @@ var KTDatatableJsonRemoteDemo = function () {
 						<div class="col-3">\
 						  <span class="kt-switch kt-switch--sm kt-switch--icon">\
 						  <label>\
-						  <input type="checkbox" data-id="'+item.id+'" '+((item.block_1)?"checked":"") +' id="block1Switch" value="1" name="show_status">\
+						  <input type="checkbox" data-id="'+item.id+'" '+((item.block_1 == 1)?"checked":"") +' id="block1Switch" value="1" name="show_status">\
 						  <span></span>\
 						  </label>\
 						  </span>\
@@ -128,7 +128,7 @@ var KTDatatableJsonRemoteDemo = function () {
 
 	$(document).on('change', '#block1Switch', function(e) {
 		var id = $(this).data('id');
-		var action_url = url + '/admin/trips/update-block1/' + id; 
+		var action_url = url + '/admin/trips/update-block1/' + id;
 		$.ajax({
 			url: action_url,
 			type: "GET",
@@ -145,7 +145,7 @@ var KTDatatableJsonRemoteDemo = function () {
 
 	$(document).on('change', '#block2Switch', function(e) {
 		var id = $(this).data('id');
-		var action_url = url + '/admin/trips/update-block2/' + id; 
+		var action_url = url + '/admin/trips/update-block2/' + id;
 		$.ajax({
 			url: action_url,
 			type: "GET",
@@ -162,7 +162,7 @@ var KTDatatableJsonRemoteDemo = function () {
 
 	$(document).on('change', '#block3Switch', function(e) {
 		var id = $(this).data('id');
-		var action_url = url + '/admin/trips/update-block3/' + id; 
+		var action_url = url + '/admin/trips/update-block3/' + id;
 		$.ajax({
 			url: action_url,
 			type: "GET",
@@ -201,7 +201,7 @@ var KTDatatableJsonRemoteDemo = function () {
 		}).then(function(result) {
 		    if (result.value) {
 		    	var id = e.attr('data-id');
-		    	var action_url = url + '/admin/trips/delete/' + id; 
+		    	var action_url = url + '/admin/trips/delete/' + id;
 		    	$.ajax({
 		    		url: action_url,
 		    		type: "DELETE",
