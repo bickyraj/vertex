@@ -315,7 +315,7 @@
                         <div class="trip-note mb-3">
                             <p class="font-weight-bold mb-0"><i class="fas fa-info"></i> Important Note</p>
                             <p>
-                                {!! ($trip->trip_seo)?$trip->trip_seo->leader:'' !!}
+                                {!! ($trip->trip_seo)?$trip->trip_seo->about_leader:'' !!}
                             </p>
                         </div>
                     </div>
