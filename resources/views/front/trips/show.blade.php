@@ -312,12 +312,14 @@
                             {!! ($trip->trip_info)?$trip->trip_info->overview:'' !!}
                         </p>
 
+                        @if ($trip->trip_seo && $trip->trip_seo->about_leader)
                         <div class="trip-note mb-3">
                             <p class="font-weight-bold mb-0"><i class="fas fa-info"></i> Important Note</p>
                             <p>
                                 {!! ($trip->trip_seo)?$trip->trip_seo->about_leader:'' !!}
                             </p>
                         </div>
+                        @endif
                     </div>
                     <p class="text-center">
                         <button id="toggle-overview" class="btn btn-accent" data-toggle="collapse"
