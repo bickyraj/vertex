@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Menu;
+use App\MenuItem;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +16,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // 
+        //
     }
 
     /**
@@ -28,5 +30,14 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             '*', 'App\Http\View\Composers\MenuComposer'
         );
+
+        View::composer('front.trips.show', function($view) {
+            $menu = Menu::where('slug', '=', 'essential-trip-information')->first();
+            $essential_trip_informations = [];
+            if ($menu) {
+                $essential_trip_informations = MenuItem::where('menu_id', '=', $menu->id)->get();
+            }
+            $view->with('essential_trip_informations', $essential_trip_informations);
+        });
     }
 }

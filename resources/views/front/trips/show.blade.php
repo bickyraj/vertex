@@ -652,39 +652,9 @@
                         </p>
                     </div>
 
-                    <div class="mb-3 essential-info">
-                        <h3>Essential Trip Information</h3>
-                        <ul class="essential-links">
-                            <li>
-                                <a href="lifetime-deposit" target="_blank">
-                                    Lifetime Deposit </a>
-                            </li>
-                            <li>
-                                <a href="privacy-policy" target="_blank">
-                                    Privacy Policy </a>
-                            </li>
-                            <li>
-                                <a href="trek-packing-list" target="_blank">
-                                    Trek Packing List </a>
-                            </li>
-                            <li>
-                                <a href="responsible-tourism" target="_blank">
-                                    Responsible Tourism </a>
-                            </li>
-                            <li>
-                                <a href="travel-insurance" target="_blank">
-                                    Travel Insurance </a>
-                            </li>
-                            <li>
-                                <a href="nepal-international-flight" target="_blank">
-                                    Nepal International Flight </a>
-                            </li>
-                            <li>
-                                <a href="terms-and-conditions" target="_blank">
-                                    Terms &amp; Conditions </a>
-                            </li>
-                        </ul>
-                    </div>
+                    {{-- ESSENTIAL TRIP INFORMATION --}}
+                    @include('front.elements.essential_trip_information')
+                    {{-- END OF ESSENTIAL TRIP INFORMATION --}}
 
                     {{-- addon trips --}}
                     @if(iterator_count($trip->addon_trips))

@@ -53,6 +53,7 @@ class TripReviewController extends Controller
 	    $msg = "";
 	    $trip_review = new TripReview;
 	    $trip_review->trip_id = $request->trip_id;
+	    $trip_review->title = $request->title;
 	    $trip_review->review_name = $request->review_name;
 	    $trip_review->review = $request->review;
 	    $trip_review->review_country = $request->review_country;
@@ -136,6 +137,7 @@ class TripReviewController extends Controller
 	    $msg = "";
 	    $trip_review = TripReview::find($request->id);
 	    $trip_review->trip_id = $request->trip_id;
+	    $trip_review->title = $request->title;
 	    $trip_review->review_name = $request->review_name;
 	    $trip_review->review = $request->review;
 	    $trip_review->review_country = $request->review_country;

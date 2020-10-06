@@ -33,6 +33,10 @@
                     {{ csrf_field() }}
                     <div class="kt-portlet__body">
                         <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" value="{{ $trip_review->title }}" name="title" class="form-control" placeholder="" required>
+                        </div>
+                        <div class="form-group">
                           <label class="form-label">Trip</label>
                           <select class="custom-select form-control form-control-sm" name="trip_id">
                               <option value="">--Select Trip--</option>
