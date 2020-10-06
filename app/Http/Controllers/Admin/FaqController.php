@@ -29,7 +29,8 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('admin.faqs.add');
+        $categories = \App\FaqCategory::all();
+        return view('admin.faqs.add', compact('categories'));
     }
 
     /**
@@ -49,6 +50,7 @@ class FaqController extends Controller
         $faq = new Faq;
         $faq->title = $request->title;
         $faq->content = $request->content;
+        $faq->faq_category_id = $request->faq_category_id;
         $faq->slug = $this->create_slug_title($faq->title);
         $faq->status = 1;
 
@@ -84,7 +86,8 @@ class FaqController extends Controller
     public function edit($id)
     {
         $faq = Faq::find($id);
-        return view('admin.faqs.edit', compact('faq'));
+        $categories = \App\FaqCategory::all();
+        return view('admin.faqs.edit', compact('faq', 'categories'));
     }
 
     /**
@@ -105,13 +108,14 @@ class FaqController extends Controller
         $faq = Faq::find($request->id);
         $faq->title = $request->title;
         $faq->content = $request->content;
+        $faq->faq_category_id = $request->faq_category_id;
         $faq->slug = $this->create_slug_title($faq->title);
         $faq->status = 1;
 
         if ($faq->save()) {
             $status = 1;
             $msg = "Faq updated successfully.";
-            session()->flash('message', $msg);
+            session()->flash('message', $msg); 
         }
 
         return response()->json([
@@ -150,6 +154,25 @@ class FaqController extends Controller
         $faqs = Faq::all();
         return response()->json([
             'data' => $faqs
+        ]);
+    }
+
+    public function updateCategory(Request $request, $id)
+    {
+        $success = false;
+        $message = "";
+
+        $faq = Faq::find($id);
+        $faq->faq_category_id = $request->category_id;
+        if ($faq->save()) {
+            $success = true;
+            $message = "Category updated successfully.";
+        }
+
+        return response()->json([
+            'data' => (object) [],
+            'success' => $success,
+            'message' => $message
         ]);
     }
 }

@@ -43,12 +43,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::post('blogs', 'BlogController@store')->name('blogs.store');
 	Route::delete('blogs/delete/{id}', 'BlogController@destroy')->name('blogs.delete');
 
-	Route::get('faqs', 'FaqController@index')->name('faqs.index');
-	Route::get('faqs/edit/{id}', 'FaqController@edit')->name('faqs.edit');
-	Route::post('faqs/update', 'FaqController@update')->name('faqs.update');
-	Route::get('faqs/add', 'FaqController@create')->name('faqs.add');
-	Route::get('faqs/list', 'FaqController@faqList');
-	Route::post('faqs', 'FaqController@store')->name('faqs.store');
+    // FAQ ROUTES
+    Route::get('faqs', 'FaqController@index')->name('faqs.index');
+    Route::post('faqs/update-category/{id}', 'FaqController@updateCategory')->name('faqs.update-category');
+    Route::get('faqs/edit/{id}', 'FaqController@edit')->name('faqs.edit');
+    Route::post('faqs/update', 'FaqController@update')->name('faqs.update');
+    Route::get('faqs/add', 'FaqController@create')->name('faqs.add');
+    Route::get('faqs/list', 'FaqController@faqList');
+    Route::post('faqs', 'FaqController@store')->name('faqs.store');
     Route::delete('faqs/delete/{id}', 'FaqController@destroy')->name('faqs.delete');
 
     // INSTAGRAM GALLERY ROUTES
@@ -207,6 +209,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::get('documents/list', 'DocumentController@documentList');
 	Route::post('documents', 'DocumentController@store')->name('documents.store');
 	Route::delete('documents/delete/{id}', 'DocumentController@destroy')->name('documents.delete');
+
+    // faq category routes
+    Route::get('faq-categories', 'FaqCategoryController@index')->name('faq-categories.index');
+    Route::get('faq-categories/list', 'FaqCategoryController@categoryList');
+    Route::post('faq-categories', 'FaqCategoryController@store')->name('faq-categories.store');
+    Route::delete('faq-categories/delete/{id}', 'FaqCategoryController@destroy')->name('faq-categories.delete');
 
 	Route::get('/admin-setting', 'UserController@setting')->name('user-setting');
 	Route::post('/admin-setting', 'UserController@updateSetting')->name('user-setting.update');

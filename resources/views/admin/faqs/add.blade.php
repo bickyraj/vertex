@@ -30,6 +30,15 @@
                     {{ csrf_field() }}
                     <div class="kt-portlet__body">
                         <div class="form-group">
+                            <label>Category</label>
+                            <select name="faq_category_id" class="form-control form-control-sm">
+                              <option value="">--Select Category--</option>
+                              @foreach($categories as $category)
+                              <option value="{{ $category->id }}">{{ $category->name }}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Title</label>
                             <input type="text" name="title" class="form-control" aria-describedby="" placeholder="Title" required>
                         </div>

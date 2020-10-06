@@ -56,6 +56,28 @@ var KTDatatableJsonRemoteDemo = function () {
 					title: 'Title',
 				},
 				{
+					field: 'Category',
+					title: 'Category',
+					sortable: false,
+					overflow: 'visible',
+					template: function(item) {
+						let option = "";
+						$.each(categoryList, function(i, v) {
+							let selected = "";
+							if (v.id == item.faq_category_id) {
+								selected = "selected";
+							}
+							option += '<option value="'+v.id+'" '+selected+'>'+v.name+'</option>';
+						});
+						return '\
+						<select data-id="'+item.id+'" class="form-control form-control-sm category-select">\
+							<option>--Select Category--</option>\
+							'+option+'\
+						</select>\
+						';
+					}
+				},
+				{
 					field: 'Actions',
 					title: 'Actions',
 					sortable: false,
@@ -90,7 +112,7 @@ var KTDatatableJsonRemoteDemo = function () {
 	};
 
 	function fetchCategoryList(categoryId) {
-		var action_url = url + '/admin/faqs/list';
+		var action_url = url + '/admin/faq-categories/list'; 
 		$.ajax({
 			url: action_url,
 			type: "GET",
@@ -107,7 +129,7 @@ var KTDatatableJsonRemoteDemo = function () {
 		let id = $(this).val();
 		let faq_id = $(this).data('id');
 
-    	var action_url = url + '/admin/faqs/update-category/' + faq_id;
+    	var action_url = url + '/admin/faqs/update-category/' + faq_id; 
 		$.ajax({
 			url: action_url,
 			type: "POST",
@@ -138,7 +160,7 @@ var KTDatatableJsonRemoteDemo = function () {
 		}).then(function(result) {
 		    if (result.value) {
 		    	var id = e.attr('data-id');
-		    	var action_url = url + '/admin/faqs/delete/' + id;
+		    	var action_url = url + '/admin/faqs/delete/' + id; 
 		    	$.ajax({
 		    		url: action_url,
 		    		type: "DELETE",

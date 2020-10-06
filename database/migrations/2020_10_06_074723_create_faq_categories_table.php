@@ -17,7 +17,6 @@ class CreateFaqCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->tinyInteger('status')->default(1);
-            $table->integer('faq_category_id')->nullable();
             $table->timestamps();
         });
     }
