@@ -222,11 +222,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
 // front routes
 Route::get('/system-clear-cache', function() {
+    Artisan::call('migrate');
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('view:clear');
     Artisan::call('route:clear');
-    Artisan::call('migrate');
     return "Cache is cleared";
 });
 Route::group(['middleware' => ['url-redirect']], function () {
