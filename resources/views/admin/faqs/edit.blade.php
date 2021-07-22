@@ -77,7 +77,7 @@ $(function() {
     $('#summernote-content').summernote({
       height: 400
     });
-    $('#summernote-content').summernote("code", '<?= $faq->content; ?> ');
+    $('#summernote-content').summernote("code", `<?= $faq->content; ?>`);
   }
   $("#add-form-faq").validate({
     submitHandler: function(form, event) {
@@ -103,7 +103,7 @@ $(function() {
         async: false,
         success: function(res) {
             if (res.status === 1) {
-                location.href = '{{ route('admin.faqs.index') }}';
+                location.href = '{{ route("admin.faqs.index") }}';
             }
         }
     });

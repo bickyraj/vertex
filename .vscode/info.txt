@@ -1,0 +1,22 @@
+git remote add origin git@github.com:bickyraj/holidaytours.git
+
+git remote set-url origin https://bickyrajkayastha@github.com/bickyraj/holidaytours.git
+
+git remote add origin git@github.com:bickyraj/holidaytours.git
+
+# new features
+
+holidaytoursnepal
+holidaytoursuser
+uz+WLnu!7m4[
+
+git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only 86dd9b3 c88eeac)
+
+list of file changes in commit.
+git diff-tree --no-commit-id --name-only -r 194f6a6
+
+heroku
+"dbname=d6b0q1ath4ma3e host=ec2-176-34-222-188.eu-west-1.compute.amazonaws.com port=5432 user=bcoadwyvyyawqn password=8bdb1eaab7dc4fcf799c6af03dbcfa922808a2455b79972e0f7f0d851e8a9374 sslmode=require"
+Connection URL:
+   postgres://bcoadwyvyyawqn:8bdb1eaab7dc4fcf799c6af03dbcfa922808a2455b79972e0f7f0d851e8a9374@ec2-176-34-222-188.eu-west-1.compute.amazonaws.com:5432/d6b0q1ath4ma3e
+
