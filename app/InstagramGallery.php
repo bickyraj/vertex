@@ -13,7 +13,8 @@ class InstagramGallery extends Model
     public function getImageAttribute()
     {
         $image = $this->get_string_between($this->embed, 'data-instgrm-permalink="', '/?utm_source=ig_embed&amp;utm_campaign=loading') . '/media?size=l';
-        return $image;
+        return 'data:image/jpg;base64,' . base64_encode(file_get_contents($image));
+        // return $image;
     }
 
     public function get_string_between($string, $start, $end){

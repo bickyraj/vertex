@@ -11,7 +11,15 @@
 |
 */
 
+// Route::get('symlink', function() {
+//     $target = '/home/vertex/vertex/storage/app/public';
+//     $shortcut = '/home/vertex/public_html/storage';
+//     symlink($target, $shortcut);
+// });
+
 Route::get('/', 'Front\HomeController@index')->name('home');
+
+// Route::get('get-fb-access-token', 'Front\HomeController@getFbAccessToken');
 
 Route::get('mycms', function() {
 	if (auth()->check()) {
@@ -227,6 +235,8 @@ Route::get('/system-clear-cache', function() {
     Artisan::call('config:clear');
     Artisan::call('view:clear');
     Artisan::call('route:clear');
+    Artisan::call('config:cache');
+    Artisan::call('storage:link');
     return "Cache is cleared";
 });
 Route::group(['middleware' => ['url-redirect']], function () {

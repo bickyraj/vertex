@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\Setting;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class HomeController extends Controller
 {
@@ -71,4 +73,36 @@ class HomeController extends Controller
 			return redirect()->route('front.contact.index');
 		}
 	}
+
+    public function getFbAccessToken()
+    {
+        $graph_version = 'v11.0';
+        $params = [
+           'query' => [
+               'url' => 'https://www.instagram.com/p/CHb48AYh-Hq',
+               'maxwidth' => '50',
+               'fields' => 'thumbnail_url,author_name,provider_name,provider_url',
+               'access_token' => '',
+           ]
+        ];
+        $endpoint = "instagram_oembed";
+
+        try {
+            $client = new Client([
+                // 'base_uri' => 'https://graph.facebook.com',
+                // 'timeout'  => 2.0,
+            ]);
+            $response = $client->request('GET', 'https://www.instagram.com/p/CRgLoinhs7x/media?size=l');
+
+        } catch (RequestException $e) {
+            $response = $e->getRequest();
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            }
+        }
+
+        return response()->json([
+            'data' => $response->getBody()->getContents()
+        ], $response->getStatusCode());
+    }
 }

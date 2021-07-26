@@ -10,7 +10,7 @@ holidaytoursnepal
 holidaytoursuser
 uz+WLnu!7m4[
 
-git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only 86dd9b3 c88eeac)
+git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only c88eeac 5f74518)
 
 list of file changes in commit.
 git diff-tree --no-commit-id --name-only -r 194f6a6
@@ -20,3 +20,5 @@ heroku
 Connection URL:
    postgres://bcoadwyvyyawqn:8bdb1eaab7dc4fcf799c6af03dbcfa922808a2455b79972e0f7f0d851e8a9374@ec2-176-34-222-188.eu-west-1.compute.amazonaws.com:5432/d6b0q1ath4ma3e
 
+
+https://www.freeprivacypolicy.com/live/8cf91529-905f-43bf-8a2b-ad9cd8bd3c68
