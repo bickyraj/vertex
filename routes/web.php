@@ -240,6 +240,9 @@ Route::get('/system-clear-cache', function() {
     return "Cache is cleared";
 });
 Route::group(['middleware' => ['url-redirect']], function () {
+    Route::get('/payment', 'Front\HomeController@payment')->name('front.payment');
+    Route::post('/payment', 'Front\HomeController@storePayment')->name('front.store_payment');
+    Route::get('/redeem-payment/{id}', 'Front\HomeController@redeemPayment')->name('front.redeem_payment');
     Route::post('/subscribe', 'Front\EmailSubscriberController@store')->name('front.email-subscribers.store');
     Route::get('/blogs', 'Front\BlogController@index')->name('front.blogs.index');
     Route::get('/gallery', 'Front\TripController@allTripGallery')->name('front.trips.all-gallery');

@@ -193,21 +193,22 @@ class TripController extends Controller
 			'id' => 'required'
 		]);
 
-		$trip = Trip::find($request->id);
-
-		$request->merge([
-			'trip_name' => $trip->name,
-			'ip_address' => $request->ip()
-		]);
-
 		try {
+
+            $trip = Trip::find($request->id);
+            $request->merge([
+                'trip_name' => $trip->name,
+                'ip_address' => $request->ip()
+            ]);
 			Mail::send('emails.common', ['body' => $request], function ($message) use ($request) {
 			    $message->to(Setting::get('email'));
 			    $message->from($request->email);
 			    $message->subject('Trip Booking');
 			});
 			session()->flash('success_message', "Thank you for your Booking. We'll contact you very soon.");
-			return redirect()->back();
+            session()->flash('trip_name', $trip->name);
+            return redirect()->route('front.payment');
+			// return redirect()->back();
 		} catch (\Exception $e) {
 			Log::info($e->getMessage());
 			return redirect()->back();

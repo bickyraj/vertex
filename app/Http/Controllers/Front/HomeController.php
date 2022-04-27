@@ -9,6 +9,8 @@ use App\Helpers\Setting;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use App\Invoice;
+use DB;
 
 class HomeController extends Controller
 {
@@ -104,5 +106,50 @@ class HomeController extends Controller
         return response()->json([
             'data' => $response->getBody()->getContents()
         ], $response->getStatusCode());
+    }
+
+    public function payment()
+    {
+        return view('front.payment.payment');
+    }
+
+    public function storePayment(Request $request)
+    {
+        try {
+            // save data to database.
+            $invoice = new Invoice();
+            $latest_invoice = DB::table('invoices')->latest('id')->first();
+            $last_id = $latest_invoice ? $latest_invoice->id: 1;
+            $invoice_id = 'IV-' .
+            str_pad($last_id, 5, "0", STR_PAD_LEFT);
+            $invoice->invoice_id = $invoice_id;
+            $invoice->full_name = $request->fullname;
+            $invoice->amount = $request->amount;
+            $invoice->price = $request->price;
+            $invoice->trip_name = $request->trip_name;
+            $invoice->email = $request->email;
+            $invoice->contact_number = $request->contact_number;
+            $invoice->save();
+            return redirect()->route('front.redeem_payment', ['id' => $invoice->id]);
+        } catch (\Throwable $th) {
+            \Log::info($th->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function redeemPayment($id)
+    {
+        $invoice = Invoice::find($id);
+        $payment = [];
+        $payment['paymentGatewayID'] = config('constants.payment_merchant_id');
+        $payment['invoiceNo'] = $invoice->invoice_id;
+        $payment['productDesc'] = $invoice->trip_name;
+        $payment['price'] =
+        str_pad((float) $invoice->price * 100, 12, "0", STR_PAD_LEFT);
+        $payment['currencyCode'] = "840";
+        $payment['nonSecure'] = "N";
+        $payment['hashValue'] = config('constants.payment_merchant_key');
+
+        return view('front.payment.redeem_payment', compact('payment'));
     }
 }
