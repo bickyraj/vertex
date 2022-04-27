@@ -3,24 +3,33 @@
   <div class="container">
     <div class="row py-5 mb-5">
       <div class="col-12 col-md-5">
-
         <div class="newsletter">
           <h2>Subscribe to our newsletter</h2>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum dicta culpa molestias suscipit fuga
             quisquam!</p>
         </div>
       </div>
-      <div class="col-12 col-md-7">
+      <div class="col-12 col-md-5">
         <form id="email-subscribe-form">
           <div class="form-group">
             <div class="form-row">
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <input type="email" name="email" class="form-control" placeholder="Email address" required>
               </div>
             </div>
           </div>
           <button type="submit" class="btn btn-accent">Subscribe</button>
         </form>
+      </div>
+      <div class="col-12 col-md-2">
+        <!-- Payment -->
+        <div class="py-10">
+            <div class="container">
+                <div class="gap-10 grid lg:grid-cols-4">
+                    <a class="btn btn-accent" href="{{ route('front.payment') }}">Payment</a>
+                </div>
+            </div>
+        </div><!-- Payment -->
       </div>
     </div>
 
