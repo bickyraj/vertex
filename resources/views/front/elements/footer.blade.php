@@ -59,7 +59,7 @@
         </ul>
       </div>
       <div class="col-12 col-lg-3">
-        <h3>About Us</h3>
+        <h3>Quick Info</h3>
         <ul>
           @if($footer3)
           @foreach($footer3 as $menu)
@@ -86,11 +86,11 @@
               </tr>
               <tr>
                 <td><i class="fas fa-phone fa-fw icon"></i></td>
-                <td><a href="tel:{{ Setting::get('mobile1') }}">{{ Setting::get('mobile1') }}</a></td>
+                <td><a href="tel:{{ Setting::get('telephone') }}">{{ Setting::get('telephone') }}</a></td>
               </tr>
               <tr>
                 <td><i class="fas fa-mobile fa-fw icon"></i></td>
-                <td><a href="tel:{{ Setting::get('mobile2') }}">{{ Setting::get('mobile2') }}</a></td>
+                <td><a href="tel:{{ Setting::get('mobile1') }}">{{ Setting::get('mobile1') }}</a></td>
               </tr>
               <tr>
                 <td><i class="fas fa-envelope fa-fw icon"></i></td>
@@ -100,17 +100,21 @@
           </table>
           <h3>Get Connected</h3>
           <div class="social-contact">
-            <a href="#">
+            <a href="{{ Setting::get('instagram') }}">
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="#">
+            <a href="{{ Setting::get('facebook') }}">
               <i class="fab fa-facebook"></i>
             </a>
-            <a href="#">
+            <a href="{{ Setting::get('twitter') }}">
               <i class="fab fa-twitter"></i>
             </a>
-            <a href="#">
-              <i class="fab fa-linkedin"></i>
+            <a href="{{ Setting::get('pinterest') }}">
+              <i class="fab fa-pinterest"></i>
+               <a href="https://api.whatsapp.com/send?phone={{ Setting::get('mobile2') }}">
+              <i class="fab fa-whatsapp"></i>
+               <a href="https://msng.link/o/?{{ Setting::get('mobile2') }}=vi">
+              <i class="fab fa-viber"></i>
             </a>
           </div>
         </div>
@@ -120,15 +124,15 @@
       <div>
         <P>We are affiliated with</P>
         <p class="affiliations">
-          <a href="http://www.tourism.gov.np"><img src="{{ asset('img/sponsers/ng.jpg') }}" height="64" alt=""></a>
-          <a href="https://welcomenepal.com"><img src="{{ asset('img/sponsers/ntb.jpg') }}" height="64" alt=""></a>
-          <a href="https://www.taan.org.np/"><img src="{{ asset('img/sponsers/taan@2x.png') }}" height="64" alt=""></a>
-          <a href="https://www.nepalmountaineering.org/"><img src="{{ asset('img/sponsers/nma@2x.png') }}" height="64" alt=""></a>
+          <a href="http://www.tourism.gov.np"><img src="{{ asset('img/sponsers/ng.jpg') }}" height="64" alt="Vertex Holiday"></a>
+          <a href="https://welcomenepal.com"><img src="{{ asset('img/sponsers/ntb.jpg') }}" height="64" alt="Vertex Holiday"></a>
+          <a href="https://www.taan.org.np/"><img src="{{ asset('img/sponsers/taan@2x.png') }}" height="64" alt="Vertex Holiday"></a>
+          <a href="https://www.nepalmountaineering.org/"><img src="{{ asset('img/sponsers/nma@2x.png') }}" height="64" alt="Vertex Holiday"></a>
         </p>
       </div>
       <div>
         <p>We accept</p>
-        <p><img src="{{ asset('assets/front/img/svg/payment.svg') }}" alt="" height="28"></p>
+        <p><img src="{{ asset('assets/front/img/svg/payment.svg') }}" alt="Vertex Holiday" height="28"></p>
       </div>
     </div>
     <hr>
