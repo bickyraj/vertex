@@ -68,7 +68,7 @@
                                   @if($destinations)
                                     @foreach($destinations as $country)
                                     <label class="kt-checkbox kt-checkbox--brand">
-                                      <input type="checkbox" name="destinations[]" value="{{ $country->id }}" 
+                                      <input type="checkbox" name="destinations[]" value="{{ $country->id }}"
                                       <?php echo ((in_array($country->id, $destination_ids)?'checked': '')); ?>> {{ $country->name }}
                                       <span></span>
                                     </label>
@@ -84,7 +84,7 @@
                                   @if($activities)
                                     @foreach($activities as $activity)
                                     <label class="kt-checkbox kt-checkbox--brand">
-                                      <input type="checkbox" name="activities[]" value="{{ $activity->id }}" 
+                                      <input type="checkbox" name="activities[]" value="{{ $activity->id }}"
                                       <?php echo ((in_array($activity->id, $activity_ids)?'checked': '')); ?>> {{ $activity->name }}
                                       <span></span>
                                     </label>
@@ -100,7 +100,7 @@
                           </div>
                         </div>
                         {{-- end of general tab --}}
-                        
+
                         {{-- seo tab --}}
                         <div class="tab-pane" data-index="2" id="kt_tabs_1_2" role="tabpanel">
                           <div class="form-group row">
@@ -175,7 +175,7 @@ $(function() {
     $('#summernote-description').summernote({
       height: 400
     });
-    $('#summernote-description').summernote("code", '<?= $region->description; ?> ');
+    $('#summernote-description').summernote("code", `<?= $region->description; ?>`);
   }
 	$("#add-form-page").validate({
 		submitHandler: function(form, event) {
@@ -208,7 +208,7 @@ $(function() {
         success: function(res) {
             if (res.status === 1) {
                 // toastr.success(res.message);
-                location.href = '{{ route('admin.regions.index') }}';
+                location.href = "{{ route('admin.regions.index') }}";
                 // form[0].reset();
                 // $('#cropper-image').attr('src', '{{ asset('img/default.gif') }}');
                 // if (cropped) {

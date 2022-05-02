@@ -82,29 +82,27 @@ class SiteSettingController extends Controller
 
     public function homePageStore(Request $request)
     {
-        $old_image = "";
-        $request->validate([
-            'file' => 'nullable|image|mimes:png,jpg,jpeg',
-        ]);
-
-        if (isset(Setting::get('homePage')['video_image'])) {
-            $old_image = Setting::get('homePage')['video_image'];
-            $request->merge(['video_image' => $old_image]);
-        } else {
-            $request->merge(['video_image' => ""]);
-        }
-
-        if ($request->hasFile('file')) {
-            $imageName = $request->file->getClientOriginalName();
-            $imageSize = $request->file->getClientSize();
-            $imageType = $request->file->getClientOriginalExtension();
-            $imageNameUniqid = md5($imageName . microtime()) . '.' . $imageType;
-            $imageName = $imageNameUniqid;
-            $request->merge(['video_image' => $imageName]);
-        }
-
         try {
-            
+            $old_image = "";
+            $request->validate([
+                'file' => 'nullable|image|mimes:png,jpg,jpeg',
+            ]);
+
+            if (isset(Setting::get('homePage')['video_image'])) {
+                $old_image = Setting::get('homePage')['video_image'];
+                $request->merge(['video_image' => $old_image]);
+            } else {
+                $request->merge(['video_image' => ""]);
+            }
+
+            if ($request->hasFile('file')) {
+                $imageName = $request->file->getClientOriginalName();
+                $imageSize = $request->file->getClientSize();
+                $imageType = $request->file->getClientOriginalExtension();
+                $imageNameUniqid = md5($imageName . microtime()) . '.' . $imageType;
+                $imageName = $imageNameUniqid;
+                $request->merge(['video_image' => $imageName]);
+            }
             Setting::update('homePage', $request->except('_token', 'file', 'cropped_data'));
             $path = 'public/home-page/';
             if ($request->hasFile('file')) {
@@ -195,7 +193,7 @@ class SiteSettingController extends Controller
         }
 
         try {
-            
+
             Setting::update('homePageSeo', $request->except('_token', 'file', 'cropped_data'));
             $path = 'public/site-settings/';
             if ($request->hasFile('file')) {
