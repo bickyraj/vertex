@@ -121,10 +121,10 @@
         </p>
       </div>
       <div>
-        <p>Payment</p>
+        <p>Online Payment</p>
         <p>
             <div class="gap-10 grid lg:grid-cols-6">
-                <a class="btn btn-accent" href="{{ route('front.payment') }}">Payment</a>
+                <a class="btn btn-accent" href="{{ route('front.payment') }}">Online Payment</a>
             </div>
         </p>
       </div>
