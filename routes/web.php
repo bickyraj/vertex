@@ -51,6 +51,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 	Route::post('blogs', 'BlogController@store')->name('blogs.store');
 	Route::delete('blogs/delete/{id}', 'BlogController@destroy')->name('blogs.delete');
 
+    Route::post('description-images/save', 'DescriptionImageController@saveDescImage')->name('description.save.image');
+    Route::post('description-images/delete', 'DescriptionImageController@deleteDescImage')->name('description.delete.image');
+
     // FAQ ROUTES
     Route::get('faqs', 'FaqController@index')->name('faqs.index');
     Route::post('faqs/update-category/{id}', 'FaqController@updateCategory')->name('faqs.update-category');

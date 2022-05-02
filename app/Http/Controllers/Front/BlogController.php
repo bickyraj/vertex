@@ -18,6 +18,7 @@ class BlogController extends Controller
 	{
 		$blog = Blog::where('slug', '=', $slug)->first();
 		$blogs = Blog::limit(3)->latest()->get();
-		return view('front.blogs.show', compact('blog', 'blogs'));
+        $seo = $blog->seo;
+		return view('front.blogs.show', compact('blog', 'blogs', 'seo'));
 	}
 }

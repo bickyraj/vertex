@@ -229,10 +229,10 @@ class PageController extends Controller
                     $page->save();
                 }
             }
-            
+
             $status = 1;
             $msg = "Page updated successfully.";
-            session()->flash('message', $msg); 
+            session()->flash('message', $msg);
         }
 
         return response()->json([
@@ -314,7 +314,7 @@ class PageController extends Controller
 
         return 0;
     }
-    
+
     public function updateSeo($request, $page)
     {
         if ($page->seo) {

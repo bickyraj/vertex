@@ -1,12 +1,12 @@
 <!-- Footer -->
 <footer>
   <div class="container">
-    <div class="row py-5 mb-5">
+    <div class="row py-5 mb-2">
       <div class="col-12 col-md-5">
+
         <div class="newsletter">
           <h2>Subscribe to our newsletter</h2>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum dicta culpa molestias suscipit fuga
-            quisquam!</p>
+          <p>Sign up and we'll send the best deals to you !</p>
         </div>
       </div>
       <div class="col-12 col-md-5">
@@ -20,16 +20,6 @@
           </div>
           <button type="submit" class="btn btn-accent">Subscribe</button>
         </form>
-      </div>
-      <div class="col-12 col-md-2">
-        <!-- Payment -->
-        <div class="py-10">
-            <div class="container">
-                <div class="gap-10 grid lg:grid-cols-4">
-                    <a class="btn btn-accent" href="{{ route('front.payment') }}">Payment</a>
-                </div>
-            </div>
-        </div><!-- Payment -->
       </div>
     </div>
 
@@ -128,6 +118,14 @@
           <a href="https://welcomenepal.com"><img src="{{ asset('img/sponsers/ntb.jpg') }}" height="64" alt="Vertex Holiday"></a>
           <a href="https://www.taan.org.np/"><img src="{{ asset('img/sponsers/taan@2x.png') }}" height="64" alt="Vertex Holiday"></a>
           <a href="https://www.nepalmountaineering.org/"><img src="{{ asset('img/sponsers/nma@2x.png') }}" height="64" alt="Vertex Holiday"></a>
+        </p>
+      </div>
+      <div>
+        <p>Payment</p>
+        <p>
+            <div class="gap-10 grid lg:grid-cols-6">
+                <a class="btn btn-accent" href="{{ route('front.payment') }}">Payment</a>
+            </div>
         </p>
       </div>
       <div>

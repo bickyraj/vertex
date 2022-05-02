@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
             'Activity' => \App\Activity::class,
             'Trip' => \App\Trip::class,
             'Region' => \App\Region::class,
+            'Blog' => \App\Blog::class,
         ]);
     }
 }

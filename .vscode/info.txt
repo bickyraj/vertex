@@ -10,7 +10,7 @@ holidaytoursnepal
 holidaytoursuser
 uz+WLnu!7m4[
 
-git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only 7666fcf 7666fcf)
+git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only 7666fcf 00a4c29)
 
 list of file changes in commit.
 git diff-tree --no-commit-id --name-only -r 194f6a6

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Blog;
+use App\Seo;
 use Image;
 use Illuminate\Support\Facades\Log;
 
@@ -42,7 +43,8 @@ class BlogController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'blog_date' => 'date|nullable|date_format:Y-m-d'
+            'blog_date' => 'date|nullable|date_format:Y-m-d',
+            'seo.social_image' => "nullable|mimes:jpeg,jpg,png,gif|max:10000"
         ]);
 
         $status = 0;
@@ -67,12 +69,16 @@ class BlogController extends Controller
         }
 
         if ($blog->save()) {
+            // save seo
+            if ($request->seo) {
+                $this->createSeo($request->seo, $blog);
+            }
             // save image.
             if ($request->hasFile('file')) {
 
                 $image_quality = 100;
 
-                if (($blog->image_size/1000000) > 1) {
+                if (($blog->image_size / 1000000) > 1) {
                     $image_quality = 75;
                 }
 
@@ -87,13 +93,13 @@ class BlogController extends Controller
                 Storage::put($path . $blog['id'] . '/' . $imageName, (string) $image->encode('jpg', $image_quality));
 
                 // medium image
-                $image->fit(600, 400, function ($constraint) {
+                $image->fit(600, 300, function ($constraint) {
                     $constraint->aspectRatio();
                 });
                 Storage::put($path . $blog['id'] . '/medium_' . $imageName, (string) $image->encode('jpg', $image_quality));
 
                 // thumbnail image
-                $image->fit(300, 200, function ($constraint) {
+                $image->fit(200, 100, function ($constraint) {
                     $constraint->aspectRatio();
                 });
                 Storage::put($path . $blog['id'] . '/thumb_' . $imageName, (string) $image->encode('jpg', $image_quality));
@@ -130,7 +136,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blog = Blog::find($id);
+        $blog = Blog::with('seo')->find($id);
         return view('admin.blogs.edit', compact('blog'));
     }
 
@@ -143,112 +149,118 @@ class BlogController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'blog_date' => 'date|nullable|date_format:Y-m-d'
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required',
+                'blog_date' => 'date|nullable|date_format:Y-m-d'
+            ]);
 
-        $status = 0;
-        $msg = "";
-        $blog = Blog::find($request->id);
-        $blog->name = $request->name;
-        $blog->description = $request->description;
-        $blog->blog_date = $request->blog_date;
-        $blog->slug = $this->create_slug_title($blog->name);
-        $blog->status = 1;
+            $status = 0;
+            $msg = "";
+            $blog = Blog::find($request->id);
+            $blog->name = $request->name;
+            $blog->description = $request->description;
+            $blog->blog_date = $request->blog_date;
+            $blog->slug = $this->create_slug_title($blog->name);
+            $blog->status = 1;
 
-        if ($request->hasFile('file')) {
-            $imageName = $request->file->getClientOriginalName();
-            $imageSize = $request->file->getClientSize();
-            $imageType = $request->file->getClientOriginalExtension();
-            $imageNameUniqid = md5($imageName . microtime()) . '.' . $imageType;
-            $imageName = $imageNameUniqid;
-
-            $blog->image_name = $imageName;
-            $blog->image_type = $imageType;
-            $blog->image_size = $imageSize;
-        }
-
-        if ($blog->save()) {
-            // save image.
             if ($request->hasFile('file')) {
+                $imageName = $request->file->getClientOriginalName();
+                $imageSize = $request->file->getClientSize();
+                $imageType = $request->file->getClientOriginalExtension();
+                $imageNameUniqid = md5($imageName . microtime()) . '.' . $imageType;
+                $imageName = $imageNameUniqid;
 
-                $path = 'public/blogs/';
-                Storage::deleteDirectory($path . $blog->id);
+                $blog->image_name = $imageName;
+                $blog->image_type = $imageType;
+                $blog->image_size = $imageSize;
+            }
 
-                $image_quality = 100;
-
-                if (($blog->image_size/1000000) > 1) {
-                    $image_quality = 75;
-                }
-
-                $cropped_data = json_decode($request->cropped_data, true);
-                $path = 'public/blogs/';
-
-                $image = Image::make($request->file);
-
-                // crop image
-                $image->crop(round($cropped_data['width']), round($cropped_data['height']), round($cropped_data['x']), round($cropped_data['y']));
-
-                Storage::put($path . $blog['id'] . '/' . $imageName, (string) $image->encode('jpg', $image_quality));
-
-                // medium image
-                $image->fit(600, 400, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                Storage::put($path . $blog['id'] . '/medium_' . $imageName, (string) $image->encode('jpg', $image_quality));
-
-                // thumbnail image
-                $image->fit(300, 200, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                Storage::put($path . $blog['id'] . '/thumb_' . $imageName, (string) $image->encode('jpg', $image_quality));
-
-                $status = 1;
-            } else {
-                if (isset($blog['image_name']) && isset($request->cropped_data) && !empty($request->cropped_data)) {
-                    $cropped_data = json_decode($request->cropped_data, true);
+            if ($blog->save()) {
+                // update seo
+                $this->updateSeo($request->seo, $blog);
+                // save image.
+                if ($request->hasFile('file')) {
 
                     $path = 'public/blogs/';
-                    $image = Image::make(Storage::get('public/blogs/' . $blog->id . '/' . $blog->image_name));
-
                     Storage::deleteDirectory($path . $blog->id);
+
+                    $image_quality = 100;
+
+                    if (($blog->image_size / 1000000) > 1) {
+                        $image_quality = 75;
+                    }
+
+                    $cropped_data = json_decode($request->cropped_data, true);
+                    $path = 'public/blogs/';
+
+                    $image = Image::make($request->file);
 
                     // crop image
                     $image->crop(round($cropped_data['width']), round($cropped_data['height']), round($cropped_data['x']), round($cropped_data['y']));
 
-                    $ext = pathinfo($blog->image_name, PATHINFO_EXTENSION);
-
-                    $imageNameUniqid = md5($blog->image_name . microtime()) . '.' . $ext;
-
-                    Storage::put($path . $blog['id'] . '/' . $imageNameUniqid, (string) $image->encode('jpg', 100));
+                    Storage::put($path . $blog['id'] . '/' . $imageName, (string) $image->encode('jpg', $image_quality));
 
                     // medium image
-                    $image->fit(600, 400, function ($constraint) {
+                    $image->fit(600, 300, function ($constraint) {
                         $constraint->aspectRatio();
                     });
-                    Storage::put($path . $blog['id'] . '/medium_' . $imageNameUniqid, (string) $image->encode('jpg', 100));
-                    
+                    Storage::put($path . $blog['id'] . '/medium_' . $imageName, (string) $image->encode('jpg', $image_quality));
+
                     // thumbnail image
-                    $image->fit(300, 200, function ($constraint) {
+                    $image->fit(200, 100, function ($constraint) {
                         $constraint->aspectRatio();
                     });
-                    Storage::put($path . $blog['id'] . '/thumb_' . $imageNameUniqid, (string) $image->encode('jpg', 100));
+                    Storage::put($path . $blog['id'] . '/thumb_' . $imageName, (string) $image->encode('jpg', $image_quality));
 
-                    $blog->image_name = $imageNameUniqid;
-                    $blog->save();
+                    $status = 1;
+                } else {
+                    if (isset($blog['image_name']) && isset($request->cropped_data) && !empty($request->cropped_data)) {
+                        $cropped_data = json_decode($request->cropped_data, true);
+
+                        $path = 'public/blogs/';
+                        $image = Image::make(Storage::get('public/blogs/' . $blog->id . '/' . $blog->image_name));
+
+                        Storage::deleteDirectory($path . $blog->id);
+
+                        // crop image
+                        $image->crop(round($cropped_data['width']), round($cropped_data['height']), round($cropped_data['x']), round($cropped_data['y']));
+
+                        $ext = pathinfo($blog->image_name, PATHINFO_EXTENSION);
+
+                        $imageNameUniqid = md5($blog->image_name . microtime()) . '.' . $ext;
+
+                        Storage::put($path . $blog['id'] . '/' . $imageNameUniqid, (string) $image->encode('jpg', 100));
+
+                        // medium image
+                        $image->fit(600, 300, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                        Storage::put($path . $blog['id'] . '/medium_' . $imageNameUniqid, (string) $image->encode('jpg', 100));
+
+                        // thumbnail image
+                        $image->fit(200, 100, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                        Storage::put($path . $blog['id'] . '/thumb_' . $imageNameUniqid, (string) $image->encode('jpg', 100));
+
+                        $blog->image_name = $imageNameUniqid;
+                        $blog->save();
+                    }
                 }
-            }
-            
-            $status = 1;
-            $msg = "Blog updated successfully.";
-            session()->flash('message', $msg); 
-        }
 
-        return response()->json([
-            'status' => $status,
-            'message' => $msg
-        ]);
+                $status = 1;
+                $msg = "Blog updated successfully.";
+                session()->flash('message', $msg);
+            }
+
+            return response()->json([
+                'status' => $status,
+                'message' => $msg
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -283,5 +295,96 @@ class BlogController extends Controller
         return response()->json([
             'data' => $blogs
         ]);
+    }
+
+    public function createSeo($request, $page)
+    {
+        $seo = new Seo;
+        $seo->meta_title = $request['meta_title'];
+        $seo->meta_keywords = $request['meta_keywords'];
+        $seo->canonical_url = $request['canonical_url'];
+        $seo->meta_description = $request['meta_description'];
+        $seo->seoable_id = $page->id;
+        $seo->seoable_type = "page";
+
+        if ($seo->save()) {
+            if (isset($request['social_image']) && !empty($request['social_image'])) {
+                $social_image = $request['social_image'];
+                $socialImageName = $social_image->getClientOriginalName();
+                $socialImageFileSize = $social_image->getClientSize();
+                $socialImageType = $social_image->getClientOriginalExtension();
+                $socialImageNameUniqid = md5(microtime()) . '.' . $socialImageType;
+                $socialImageName = $socialImageNameUniqid;
+                $seo->social_image = $socialImageName;
+
+                $image_quality = 100;
+                if (($socialImageFileSize/1000000) > 1) {
+                    $image_quality = 75;
+                }
+
+                $path = 'public/seos/';
+                $image = Image::make($social_image);
+
+                // store new image
+                Storage::put($path . $seo->id . '/' . $socialImageName, (string) $image->encode('jpg', $image_quality));
+                $file = $path . $seo->id.'/'. $socialImageName;
+
+                $seo->save();
+            }
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public function updateSeo($request, $blog)
+    {
+        if ($blog->seo) {
+            $seo = $blog->seo;
+        } else {
+            $seo = new Seo;
+            $seo->seoable_id = $blog->id;
+            $seo->seoable_type = "blog";
+        }
+
+        $seo->meta_title = $request['meta_title'];
+        $seo->meta_keywords = $request['meta_keywords'];
+        $seo->canonical_url = $request['canonical_url'];
+        $seo->meta_description = $request['meta_description'];
+
+        if ($seo->save()) {
+            if (isset($request['social_image']) && !empty($request['social_image'])) {
+                $social_image = $request['social_image'];
+                $social_image_name = $social_image->getClientOriginalName();
+                $old_social_image_name = $seo->social_image;
+                $socialImageFileSize = $social_image->getClientSize();
+                $socialImageType = $social_image->getClientOriginalExtension();
+                $social_image_name = md5(microtime()) . '.' . $socialImageType;
+                $seo->social_image = $social_image_name;
+
+                $image_quality = 100;
+                if (($socialImageFileSize / 1000000) > 1) {
+                    $image_quality = 75;
+                }
+
+                $path = 'public/seos/';
+                $image = Image::make($social_image);
+
+                // store new image
+                Storage::put($path . $seo->id . '/' . $social_image_name, (string) $image->encode('jpg', $image_quality));
+                // delete old image
+                Storage::delete($path . $seo->id . '/' . $old_social_image_name);
+
+                $file = $path . $seo->id . '/' . $social_image_name;
+                if (!Storage::exists($file)) {
+                    $seo->social_image = "";
+                    $seo->save();
+                }
+
+                $seo->save();
+            }
+            return 1;
+        }
+        return 0;
     }
 }

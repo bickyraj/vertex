@@ -8,7 +8,7 @@ class Blog extends Model
 {
 	protected $guarded = ['id'];
 
-    protected $appends = ['imageUrl', 'thumbImageUrl', 'mediumImageUrl', 'link', 'formattedDate'];	
+    protected $appends = ['imageUrl', 'thumbImageUrl', 'mediumImageUrl', 'link', 'formattedDate'];
 
     public function getImageUrlAttribute()
     {
@@ -45,5 +45,13 @@ class Blog extends Model
     public function getFormattedDateAttribute()
     {
         return date('F j, Y', strtotime($this->attributes['blog_date']));
+    }
+
+    /**
+     * Get all of the seo.
+     */
+    public function seo()
+    {
+        return $this->morphOne('App\Seo', 'seoable');
     }
 }

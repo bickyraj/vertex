@@ -1,4 +1,10 @@
 @extends('layouts.front')
+@section('meta_og_title'){!! $seo->meta_title??'' !!}@stop
+@section('meta_description'){!! $seo->meta_description??'' !!}@stop
+@section('meta_keywords'){!! $seo->meta_keywords??'' !!}@stop
+@section('meta_og_url'){!! $seo->canonical_url??'' !!}@stop
+@section('meta_og_description'){!! $seo->meta_description??'' !!}@stop
+@section('meta_og_image'){!! $seo->socialImageUrl??'' !!}@stop
 @section('content')
 <!-- Hero -->
 <section class="hero-second">
