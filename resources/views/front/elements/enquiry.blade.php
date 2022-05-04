@@ -1,4 +1,4 @@
-<div class="quick-enquiry-card card mb-3">
+<div class="sticky-top quick-enquiry-card card mb-3" style="top:135px; margin-top: 20px; z-index: 1;">
     <div class="card-header">
         <h3>Quick Enquiry</h3>
     </div>

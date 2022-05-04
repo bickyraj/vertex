@@ -18,7 +18,9 @@ class TripController extends Controller
 			'trip_info',
 			'trip_include_exclude',
 			'trip_itineraries',
-			'trip_reviews',
+			'trip_reviews' => function($q) {
+                $q->where('status', 1);
+            },
 			'similar_trips',
 			'addon_trips',
 			'trip_faqs',

@@ -22,7 +22,7 @@
                             <i class="kt-font-brand flaticon2-settings"></i>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            Site Settings hello
+                            Site Settings
                         </h3>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-2 col-form-label">Mobile 2</label>
+                                    <label class="col-lg-2 col-form-label">WhatsApp/ Viber</label>
                                     <div class="col-lg-7">
                                         <input type="text" id="input-trip-name" class="form-control form-control-sm"
                                             name="mobile2" value="{{ Setting::get('mobile2') }}">
@@ -196,7 +196,15 @@
                                         <input type="text" id="input-trip-name" class="form-control form-control-sm"
                                             name="trip_block_2[title]"
                                             value="{{ Setting::get('homePage')['trip_block_2']['title'] ?? '' }}">
-                                        {{-- <span class="form-text text-muted">Please enter your full name</span> --}}
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Content </label>
+                                    <div class="col-lg-7">
+                                        <input type="hidden" name="trip_block_2[content]">
+                                        <div id="summernote-trip-block-2-content" class="summernote">
+                                            <?= Setting::get('homePage')['trip_block_2']['content']??'' ?></div>
                                     </div>
                                 </div>
                                 <h5>Trip Block 3</h5>
@@ -301,7 +309,7 @@
                         {{-- end of contact us --}}
 
                         {{-- get connected block --}}
-                        <div class="tab-pane active" data-index="4" id="kt_tabs_1_4" role="tabpanel">
+                        <div class="tab-pane" data-index="4" id="kt_tabs_1_4" role="tabpanel">
                             <form class="kt-form" method="POST" action="{{ route('admin.settings.socialmedia.store') }}"
                                 id="setting-form">
                                 {{ csrf_field() }}
@@ -426,6 +434,7 @@
             event.preventDefault();
             $('input[name="welcome[content]"]').val($('#summernote-home-content').summernote('code'));
             $('input[name="reason[content]"]').val($('#summernote-reason-content').summernote('code'));
+            $('input[name="trip_block_2[content]"]').val($('#summernote-trip-block-2-content').summernote('code'));
             $("#setting-home-form").submit();
         });
 
@@ -502,6 +511,7 @@
         function initSummerNote() {
             $('#summernote-home-content').summernote();
             $('#summernote-reason-content').summernote();
+            $('#summernote-trip-block-2-content').summernote();
         }
 
         var cropped = false;
