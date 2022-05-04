@@ -627,11 +627,6 @@
                             class="fas fa-file-download"></i>Download
                         Brochure</button>
 
-                    {{-- enquiry form --}}
-                    @include('front.elements.enquiry')
-                    {{-- end of enquiry form --}}
-
-
                     <div class="experts-card card">
                         <p class="mb-0">Still confused?</p>
                         <h3 class="mb-4">Talk to our experts</h3>
@@ -679,6 +674,10 @@
                     @endif
                     {{-- end of addon trips --}}
 
+                    <div class="ta-widget">
+                        <img src="{{ asset('assets/front/img/ta-widget.jpg') }}" alt="" class="img-fluid">
+                    </div>
+
                     @if(iterator_count($blogs))
                     <div class="latest-blog card mb-3">
                         <div class="card-body p-0">
@@ -694,10 +693,10 @@
                         </div>
                     </div>
                     @endif
-
-                    <div class="ta-widget">
-                        <img src="{{ asset('assets/front/img/ta-widget.jpg') }}" alt="" class="img-fluid">
-                    </div>
+                    {{-- enquiry form --}}
+                    @include('front.elements.enquiry')
+                    {{-- end of enquiry form --}}
+                    <div style="display: block; height: 100vh;"></div>
                 </aside>
             </div>
 

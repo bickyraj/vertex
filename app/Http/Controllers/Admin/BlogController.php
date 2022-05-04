@@ -19,7 +19,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::get()->toArray();
+        $blogs = Blog::select('id', 'name', 'slug', 'image_name', 'blog_date')->get()->toArray();
         return view('admin.blogs.index', compact('blogs'));
     }
 
@@ -289,11 +289,17 @@ class BlogController extends Controller
         ], $http_status_code);
     }
 
-    public function blogList()
+    public function blogList(Request $request)
     {
-        $blogs = Blog::all();
+        $blogs = Blog::select('id', 'name', 'slug', 'image_name', 'blog_date')->paginate(10, ['id', 'name', 'slug', 'image_name', 'blog_date'], 'page', $request->pagination['page'])->toArray();
         return response()->json([
-            'data' => $blogs
+            'data' => $blogs['data'],
+            'meta' => [
+                "page" => $blogs['current_page'],
+                "pages" => $blogs['last_page'],
+                "perpage" => $blogs['per_page'],
+                "total" => $blogs['total']
+            ],
         ]);
     }
 

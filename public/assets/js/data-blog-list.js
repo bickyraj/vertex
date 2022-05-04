@@ -23,23 +23,29 @@ var KTDatatableJsonRemoteDemo = function () {
 					}
 				},
 				pageSize: 10,
+                saveState: true,
+                serverPaging: true
 			},
-
 			// layout definition
 			layout: {
 				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-				footer: false // display/hide footer
+				footer: false, // display/hide footer,
+                icons: {
+                    pagination: {
+                      next: 'la la-angle-right',
+                      prev: 'la la-angle-left',
+                      first: 'la la-angle-double-left',
+                      last: 'la la-angle-double-right',
+                      more: 'la la-ellipsis-h'
+                    }
+                }
 			},
-
 			// column sorting
 			sortable: true,
-
 			pagination: true,
-
 			search: {
 				input: $('#generalSearch')
 			},
-
 			// columns definition
 			columns: [
 				{
@@ -86,8 +92,10 @@ var KTDatatableJsonRemoteDemo = function () {
 					';
 					},
 				}
-			],
-
+            ],
+            toolbar: {
+                layout: ['pagination', 'info']
+            }
 		});
 
     $('#kt_form_status').on('change', function() {
@@ -114,7 +122,7 @@ var KTDatatableJsonRemoteDemo = function () {
 		}).then(function(result) {
 		    if (result.value) {
 		    	var id = e.attr('data-id');
-		    	var action_url = url + '/admin/blogs/delete/' + id; 
+		    	var action_url = url + '/admin/blogs/delete/' + id;
 		    	$.ajax({
 		    		url: action_url,
 		    		type: "DELETE",

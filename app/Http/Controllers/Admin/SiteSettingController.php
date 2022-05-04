@@ -172,27 +172,26 @@ class SiteSettingController extends Controller
 
     public function seoManagerStore(Request $request)
     {
-        $old_image = "";
-        $request->validate([
-            'file' => 'nullable|image|mimes:png,jpg,jpeg',
-        ]);
-
-        if (isset(Setting::get('homePageSeo')['og_image'])) {
-            $old_image = Setting::get('homePageSeo')['og_image'];
-            $request->merge(['og_image' => $old_image]);
-        } else {
-            $request->merge(['og_image' => ""]);
-        }
-
-        if ($request->hasFile('file')) {
-            $imageName = $request->file->getClientOriginalName();
-            $imageSize = $request->file->getClientSize();
-            $imageType = $request->file->getClientOriginalExtension();
-            $imageName = md5(microtime()) . '.' . $imageType;
-            $request->merge(['og_image' => $imageName]);
-        }
-
         try {
+            $old_image = "";
+            $request->validate([
+                'file' => 'nullable|image|mimes:png,jpg,jpeg',
+            ]);
+
+            if (isset(Setting::get('homePageSeo')['og_image'])) {
+                $old_image = Setting::get('homePageSeo')['og_image'];
+                $request->merge(['og_image' => $old_image]);
+            } else {
+                $request->merge(['og_image' => ""]);
+            }
+
+            if ($request->hasFile('file')) {
+                $imageName = $request->file->getClientOriginalName();
+                $imageSize = $request->file->getClientSize();
+                $imageType = $request->file->getClientOriginalExtension();
+                $imageName = md5(microtime()) . '.' . $imageType;
+                $request->merge(['og_image' => $imageName]);
+            }
 
             Setting::update('homePageSeo', $request->except('_token', 'file', 'cropped_data'));
             $path = 'public/site-settings/';

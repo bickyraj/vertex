@@ -144,7 +144,7 @@ $(function() {
     $('#summernote-description').summernote({
       height: 400
     });
-    $('#summernote-description').summernote("code", '<?= $page->description; ?> ');
+    $('#summernote-description').summernote("code", `<?= $page->description; ?>`);
   }
 	$("#add-form-page").validate({
 		submitHandler: function(form, event) {
@@ -176,7 +176,7 @@ $(function() {
         async: false,
         success: function(res) {
             if (res.status === 1) {
-                location.href = '{{ route('admin.pages.index') }}';
+                location.href = "{{ route('admin.pages.index') }}";
             }
         }
     });

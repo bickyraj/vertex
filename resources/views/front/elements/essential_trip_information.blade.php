@@ -1,4 +1,4 @@
-@if (!$essential_trip_informations->isEmpty())
+@if ($essential_trip_informations)
 <div class="mb-3 essential-info">
     <h3>Essential Trip Information</h3>
     <ul class="essential-links">
