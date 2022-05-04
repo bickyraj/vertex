@@ -22,5 +22,3 @@ Connection URL:
 
 
 https://www.freeprivacypolicy.com/live/8cf91529-905f-43bf-8a2b-ad9cd8bd3c68
-
-rebase tutorials
