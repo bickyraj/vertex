@@ -16,6 +16,7 @@ class HomeController extends Controller
 {
 	public function index()
 	{
+        // m1, m2, m3, m4, m5, m6
 		$data['banners'] = \App\Banner::all();
 		$data['destinations'] = \App\Destination::orderBy('name')->select('id', 'name', 'slug')->get();
 		$data['activities'] = \App\Activity::orderBy('name')->select('id', 'name', 'slug')->get();
