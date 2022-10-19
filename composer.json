@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "barryvdh/laravel-dompdf": "^0.8.6",
+        "caseyamcl/toc": "^3.1",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0",
@@ -41,7 +42,8 @@
             "app/Helpers/Functions.php"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Bickyraj\\Toc\\": "packages/bickyraj/toc/src/"
         },
         "classmap": [
             "database/seeds",

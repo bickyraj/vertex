@@ -67,6 +67,11 @@
                                     <div id="summernote-description" class="summernote"></div>
                                 </div>
                             </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label>Table of Content</label>
+                                <div id="summernote-description-toc" class="summernote"></div>
+                            </div>
                             {{-- seo tab --}}
                             <div class="tab-pane" data-index="2" id="kt_tabs_1_2" role="tabpanel">
                                 <div class="form-group row">
@@ -149,6 +154,17 @@ $(function() {
               }
           }
       });
+      $('#summernote-description-toc').summernote({
+          height: 600,
+          callbacks: {
+              onImageUpload: function(files, editor, welEditable) {
+                  sendFile(files[0], this);
+              },
+              onMediaDelete : function(target) {
+                  deleteFile(target[0].src);
+              }
+          }
+      });
     }
     $('.datepicker').datepicker();
     $("#add-form-blog").validate({
@@ -166,7 +182,9 @@ $(function() {
       var form = $(form);
       var formData = new FormData(form[0]);
       var description = form.find('#summernote-description').summernote('code');
+      var toc = form.find('#summernote-description-toc').summernote('code');
       formData.append('description', description);
+      formData.append('toc', toc);
       if (cropper) {
         formData.append('cropped_data', JSON.stringify(cropper.getData()));
       }

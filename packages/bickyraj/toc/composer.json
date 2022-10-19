@@ -1,0 +1,25 @@
+{
+    "name": "bickyraj/toc",
+    "description": "table of content",
+    "license": "mit",
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "bickyraj\\toc\\TocServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Bickyraj\\Toc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bicky Raj Kayastha",
+            "email": "bickyrajkayastha@gmail.com"
+        }
+    ],
+    "require": {}
+}

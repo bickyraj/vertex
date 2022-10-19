@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use Bickyraj\Toc\Contents;
 use Illuminate\Http\Request;
 use App\Blog;
 
@@ -14,11 +15,14 @@ class BlogController extends Controller
 		return view('front.blogs.index', compact('blogs'));
 	}
 
-	public function show($slug)
+	public function show($slug, Contents $contents)
 	{
-		$blog = Blog::where('slug', '=', $slug)->first();
+        $blog = Blog::where('slug', '=', $slug)->first();
+        $contents->fromText($blog->toc)->setTags(['h2', 'h3', 'h4'])->setMinLength(100);
+        $body = $contents->getHandledText();
+        $contents = $contents->getContents();
 		$blogs = Blog::limit(3)->latest()->get();
         $seo = $blog->seo;
-		return view('front.blogs.show', compact('blog', 'blogs', 'seo'));
+		return view('front.blogs.show', compact('blog', 'blogs', 'seo', 'contents', 'body'));
 	}
 }

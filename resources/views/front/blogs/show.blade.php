@@ -58,4 +58,14 @@
         <p class="text-center"><a href="{{ route('front.blogs.index') }}">See all</a></p>
     </div>
 </section>
+<section class="news">
+    <div class="container">
+        <h2>Table of Content</h2>
+        <div class="row">
+            @if(!empty($contents))
+                @include('bickyraj.toc.table', $contents)
+            @endif
+        </div>
+    </div>
+</section>
 @endsection

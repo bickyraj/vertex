@@ -54,6 +54,7 @@ class BlogController extends Controller
         $blog->description = $request->description;
         $blog->blog_date = $request->blog_date;
         $blog->slug = $this->create_slug_title($blog->name);
+        $blog->toc = $request->toc;
         $blog->status = 1;
 
         if ($request->hasFile('file')) {
