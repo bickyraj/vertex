@@ -29,6 +29,19 @@
         </div>
     </div>
 </section>
+<section class="news">
+    <div class="container">
+        <h2>Table of Content</h2>
+        <div class="row">
+            @if(!empty($contents))
+                @include('bickyraj.toc.table', $contents)
+            @endif
+        </div>
+    </div>
+    <div class="container">
+        {!! $body !!}
+    </div>
+</section>
 <!-- Latest News -->
 <section class="news">
     <div class="container">
@@ -56,19 +69,6 @@
         	@endif
         </div>
         <p class="text-center"><a href="{{ route('front.blogs.index') }}">See all</a></p>
-    </div>
-</section>
-<section class="news">
-    <div class="container">
-        <h2>Table of Content</h2>
-        <div class="row">
-            @if(!empty($contents))
-                @include('bickyraj.toc.table', $contents)
-            @endif
-        </div>
-    </div>
-    <div class="container">
-        {!! $body !!}
     </div>
 </section>
 @endsection
