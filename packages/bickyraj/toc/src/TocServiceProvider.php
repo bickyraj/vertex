@@ -27,7 +27,7 @@ class TocServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/views', 'toc');
         $this->publishes([
-            __DIR__ . '/views' => base_path('resources/views/bickyraj/toc'),
+            __DIR__ . '/views' => resource_path('views/bickyraj'),
         ]);
     }
 }
