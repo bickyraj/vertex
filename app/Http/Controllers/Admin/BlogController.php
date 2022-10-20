@@ -162,6 +162,7 @@ class BlogController extends Controller
             $blog->name = $request->name;
             $blog->description = $request->description;
             $blog->blog_date = $request->blog_date;
+            $blog->toc = $request->toc;
             $blog->slug = $this->create_slug_title($blog->name);
             $blog->status = 1;
 

@@ -67,5 +67,8 @@
             @endif
         </div>
     </div>
+    <div class="container">
+        {!! $body !!}
+    </div>
 </section>
 @endsection

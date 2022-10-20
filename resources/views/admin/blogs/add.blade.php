@@ -101,17 +101,17 @@
                                 </div>
                                 </div>
                                 <div class="form-group row">
-                                <label class="col-lg-2 col-form-label">Social Image</label>
-                                <div class="col-lg-7">
-                                    <div>
-                                    <p id="social_image_name"></p>
+                                    <label class="col-lg-2 col-form-label">Social Image</label>
+                                    <div class="col-lg-7">
+                                        <div>
+                                        <p id="social_image_name"></p>
+                                        </div>
+                                        <div>
+                                        <button type="button" class="btn btn-sm btn-secondary btn-wide" onclick="document.getElementById('social_image').click();"> Upload Social Image
+                                        </button>
+                                        </div>
+                                        <input type="file" style="display: none;" id="social_image" class="form-control form-control-sm" name="seo[social_image]">
                                     </div>
-                                    <div>
-                                    <button type="button" class="btn btn-sm btn-secondary btn-wide" onclick="document.getElementById('social_image').click();"> Upload Social Image
-                                    </button>
-                                    </div>
-                                    <input type="file" style="display: none;" id="social_image" class="form-control form-control-sm" name="seo[social_image]">
-                                </div>
                                 </div>
                             </div>
                             {{-- end of seo tab --}}
