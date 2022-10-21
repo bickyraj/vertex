@@ -2,7 +2,7 @@
 @section('meta_og_title'){!! $seo->meta_title??'' !!}@stop
 @section('meta_description'){!! $seo->meta_description??'' !!}@stop
 @section('meta_keywords'){!! $seo->meta_keywords??'' !!}@stop
-@section('meta_og_url'){!! $seo->canonical_url??'' !!}@stop
+@section('meta_og_url'){!! $blog->seo->canonical_url??'' !!}@stop
 @section('meta_og_description'){!! $seo->meta_description??'' !!}@stop
 @section('meta_og_image'){!! $seo->socialImageUrl??'' !!}@stop
 @section('content')
@@ -43,32 +43,22 @@
     </div>
 </section>
 <!-- Latest News -->
+<!-- Latest News -->
+@if(iterator_count($blogs))
 <section class="news">
-    <div class="container">
-        <h2>Blog / News</h2>
-        <div class="row">
-        	@if($blogs)
-    			@foreach($blogs as $blog)
-    			<div class="col-md-4">
-    			    <div class="news-card shadow">
-    			        <div class="img-wrapper">
-    			            <img src="{{ $blog->mediumImageUrl }}" class="img-fluid" alt="">
-    			        </div>
-    			        <div class="info">
-    			            <p class="date">
-    			                <span>{{ $blog->formattedDate }}</span>
-    			            </p>
-    			            <a class="title" href="blog-article.php">
-    			            	{{ $blog->name }}
-    			            </a>
-    			            <?= truncate($blog->description); ?>
-    			        </div>
-    			    </div>
-    			</div>
-    			@endforeach
-        	@endif
-        </div>
-        <p class="text-center"><a href="{{ route('front.blogs.index') }}">See all</a></p>
+  <div class="container">
+    <h2>{{ Setting::get('homePage')['blog']['title'] ?? '' }}</h2>
+
+    <div class="row">
+      @foreach($blogs as $blog)
+      <div class="col-md-4">
+        @include('front.blogs.single-blog-card')
+      </div>
+      @endforeach
     </div>
+    <p class="text-center"><a href="{{ route('front.blogs.index') }}">See all</a></p>
+  </div>
 </section>
+@endif
+{{-- END OF LATEST NEWS --}}
 @endsection
