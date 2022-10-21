@@ -230,7 +230,7 @@
                                     <button type="button" class="btn btn-sm btn-secondary btn-wide" onclick="document.getElementById('map_file').click();"> Upload Map Image
                                     </button>
                                   </div>
-                                  <input type="hidden" name="has_map_file" id="has_map_file" value="{{ ($trip->pdf_original_file_name)?1:0 }}">
+                                  <input type="hidden" name="has_map_file" id="has_map_file" value="{{ ($trip->map_original_file_name)?1:0 }}">
                                   <input type="file" style="display: none;" id="map_file" class="form-control form-control-sm" name="map_file_name">
                                 </div>
                               </div>

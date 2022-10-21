@@ -415,7 +415,7 @@ class TripController extends Controller
                 }
             } else {
                 // check if trip has pdf file
-                if ($request->has_pdf_file == 0) {
+                if ($request->has_map_file == 0) {
                     $path = 'public/trips/';
                     Storage::delete($path . $trip['id'] . '/'. $trip['map_file_name']);
                     $trip->map_file_name = "";

@@ -10,7 +10,7 @@ holidaytoursnepal
 holidaytoursuser
 uz+WLnu!7m4[
 
-git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only 82ca3cb fb43417)
+git archive --output=update_zip.zip HEAD $(git diff --diff-filter=ACMRTUXB --name-only fb43417 95cb764)
 
 list of file changes in commit.
 git diff-tree --no-commit-id --name-only -r 194f6a6
@@ -22,3 +22,47 @@ Connection URL:
 
 
 https://www.freeprivacypolicy.com/live/8cf91529-905f-43bf-8a2b-ad9cd8bd3c68
+
+
+var temp = 0;
+function test(arr) {
+  for (var j=0; j< arr.length - 1; j++) {
+    for (var i=0; i< arr.length - j; i++) {
+      if (arr[i] < arr[i+1]) {
+        temp = arr[i+1];
+        arr[i+1] = arr[i];
+        arr[i] = temp;
+      }
+    }
+  }
+  console.log(arr);
+}
+
+test([20,30,1,5,45]);
+
+var i, sign;
+var result, x, maxTerms;
+
+x = 10;
+maxTerms = 5;
+result = 1;
+
+function power(base, expon) {
+  let resp = 1;
+  for(var j = 0; j< expon; j++) {
+    resp = base * base;
+  }
+  return resp;
+}
+
+function factorial(n) {
+  for(var j = 0; j< )
+}
+for(i=1; i <= maxTerms; i++) {
+  if(i%2 === 1) {
+    sign = -1;
+  } else {
+    sign = 1;
+  }
+  result = result + sign *
+}
