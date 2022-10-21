@@ -29,6 +29,7 @@
         </div>
     </div>
 </section>
+@if ($contents)
 <section class="news">
     <div class="container">
         <h2>Table of Content</h2>
@@ -42,6 +43,7 @@
         {!! $body !!}
     </div>
 </section>
+@endif
 <!-- Latest News -->
 <!-- Latest News -->
 @if(iterator_count($blogs))
